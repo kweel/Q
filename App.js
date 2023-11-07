@@ -6,13 +6,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Homepage from './src/components/Homepage'
 import Self from './src/components/Self'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import FriendsTabs from './src/components/navigation/FriendsTabs';
 const Stack = createNativeStackNavigator();
 const MainTabs = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer style={styles.container}>
       <MainTabs.Navigator initialRouteName="Home">
-        <MainTabs.Screen name = "Friends" component = {Self} />
+        <MainTabs.Screen name = "Friends" component = {FriendsTabs} />
         <Stack.Screen name = "Home" component = {Homepage} />
         <MainTabs.Screen name = "Self" component = {Self} />
       </MainTabs.Navigator>
