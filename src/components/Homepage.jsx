@@ -1,4 +1,4 @@
-import { Text, View, Button } from "react-native";
+import { Text, View, Button, ScrollView } from "react-native";
 import { useLinkProps } from '@react-navigation/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -10,6 +10,10 @@ export default function Homepage({ navigation }) {
                 title="Go to notHome"
                 onPress={() => navigation.navigate('NotHome')}
             />
+            <ScrollView>
+              <Text style={{fontSize:14}}>Kevin's Post</Text>
+            </ScrollView>
         </View>
+        
     )
 }
