@@ -7,8 +7,8 @@ export default function Homepage({ navigation }) {
         <View style = {useLinkProps.style}>
             <Text>Open up App.js to start working on your app! Garbonzobarbonzo</Text>
             <Button
-                title="Go to notHome"
-                onPress={() => navigation.navigate('NotHome')}
+                title="Go to Self"
+                onPress={() => navigation.navigate('Self')}
             />
             <ScrollView>
               <Text style={{fontSize:14}}>Kevin's Post</Text>
