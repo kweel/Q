@@ -8,7 +8,7 @@ import Friends from './src/components/Friends'
 import Me from './src/components/Me'
 
 const Stack = createNativeStackNavigator();
-
+const MainTabs = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer style={styles.container}>
