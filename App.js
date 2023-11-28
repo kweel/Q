@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Feed from './src/components/Feed'
 import Friends from './src/components/Friends'
 import Me from './src/components/Me'
+import FriendsTabs from './src/components/navigation/FriendsTabs';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -15,37 +16,25 @@ export default function App() {
       <Stack.Navigator 
         initialRouteName="route"
         screenOptions={{
+          headerStyle: {
+            backgroundColor: '#000000'
+          },
+          headerTintColor: 'white',
         }}>
         <Stack.Screen 
           name = "Feed" 
           component = {Feed} 
           options={{
             title: 'Q',
-            headerStyle: {
-              backgroundColor: '#000000'
-            },
-            headerTintColor: 'white',
           }}
         />
         <Stack.Screen 
           name = "Friends" 
-          component = {Friends} 
-          options={{
-            headerStyle: {
-              backgroundColor: '#000000'
-            },
-            headerTintColor: 'white',
-          }}
+          component = {FriendsTabs} 
         />
         <Stack.Screen 
           name = "Me" 
           component = {Me} 
-          options={{
-            headerStyle: {
-              backgroundColor: '#000000'
-            },
-            headerTintColor: 'white',
-          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

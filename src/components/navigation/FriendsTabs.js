@@ -1,13 +1,18 @@
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ProfileScroll from '../ProfileScroll';
-const TopTabs = createMaterialTopTabNavigator();
+const BottomTabs = createBottomTabNavigator();
 //much taken from https://reactnavigation.org/docs/material-top-tab-navigator
 function FriendsTabs() {
   return (
-    <TopTabs.Navigator>
-      <TopTabs.Screen name="Friends" component={ProfileScroll} />
-      <TopTabs.Screen name="Requests" component={ProfileScroll} />
-    </TopTabs.Navigator>
+    <BottomTabs.Navigator screenOptions={{
+      tabBarStyle: {
+        backgroundColor: '#000000',
+      },
+      tabBarActiveTintColor: 'white',
+    }}>
+      <BottomTabs.Screen name="Friends" key = "Friends" component={ProfileScroll} />
+      <BottomTabs.Screen name="Requests" key="Requests" component={ProfileScroll} />
+    </BottomTabs.Navigator>
   );
 }
 export default FriendsTabs;
