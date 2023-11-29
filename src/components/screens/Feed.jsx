@@ -45,7 +45,7 @@ export default function Feed ({ navigation }) {
     ,[messages])
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#000000"}}>
-      <ScrollData data={messages} Element={MessageCard}/>
+      <ScrollData data={messages} Element={MessageCard} name="messages"/>
     </SafeAreaView>
   )
 }
