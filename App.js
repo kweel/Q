@@ -4,19 +4,20 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Feed from './src/components/Feed'
-import Me from './src/components/Me'
+import Feed from './src/components/screens/Feed'
+import Me from './src/components/screens/Me'
 import FriendsTabs from './src/components/navigation/FriendsTabs';
 import FriendsDataContext from './src/components/contexts/FriendsDataContext';
 import RequestsDataContext from './src/components/contexts/RequestsDataContext';
 import MessagesDataContext from './src/components/contexts/MessagesDataContext';
-
+import GetProfileDataContext from './src/components/contexts/GetProfileDataContext';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
   const [friends,setFriends]=useState([])
   const [requests,setRequests]=useState([])
   const [messages,setMessages]=useState([])
+  const [profiles,setProfiles]=useState([])
   //set contexts in the beginning. When we have backend, use fetch for this. For now it is hardcoded
   useEffect(() => {
     setFriends([
@@ -51,6 +52,21 @@ export default function App() {
         ])
 
   },[])
+  useEffect(() => {
+    setProfiles({
+      //usernames MUST be unique, profile data will be fetched with username
+      //messages might also be done through profiles? I want something centralized where data is scraped from one source
+      //must be a database thing???
+      Jan:{friendDate:1010,todayQuote:{title:'bums', body:'ur a bum'},friendsList:['Ken','Sarah','LacrosseMan','poster','urmum','anubarak']},
+      Ken:{friendDate:10130,todayQuote:{title:'bums', body:'ur a bum'},friendsList:['Sarah','Jan','LacrosseMan','poster','urmum','anubarak']},
+      poster:{friendDate:10104,todayQuote:{title:'bums', body:'ur a bum'},friendsList:['Ken','Jan','LacrosseMan','Sarah','urmum','anubarak']},
+      Sarah:{friendDate:10810,todayQuote:{title:'bums', body:'ur a bum'},friendsList:['Ken','Jan','LacrosseMan','poster','urmum','anubarak']},
+    })
+
+},[])
+const getProfile = (username) => {
+  return profiles[username]
+}
   return (
     
     <NavigationContainer style={styles.container}>
@@ -58,32 +74,34 @@ export default function App() {
       <FriendsDataContext.Provider value={[friends,setFriends]}>
         <RequestsDataContext.Provider value={[requests,setRequests]}>
           <MessagesDataContext.Provider value={[messages,setMessages]}>
-            <Stack.Navigator 
-              initialRouteName="route"
-              screenOptions={{
-                headerStyle: {
-                  backgroundColor: '#000000'
-                },
-                headerTintColor: 'white',
-              }}>
-              <Stack.Screen 
-                name = "Feed" 
-                component = {Feed} 
-                options={{
-                  title: 'Q',
-                }}
-              />
-              
-              <Stack.Screen 
-                name = "Friends" 
-                component = {FriendsTabs} 
-              />
-              
-              <Stack.Screen 
-                name = "Me" 
-                component = {Me} 
-              />
-            </Stack.Navigator>
+            <GetProfileDataContext.Provider value={getProfile}>
+              <Stack.Navigator 
+                initialRouteName="route"
+                screenOptions={{
+                  headerStyle: {
+                    backgroundColor: '#000000'
+                  },
+                  headerTintColor: 'white',
+                }}>
+                <Stack.Screen 
+                  name = "Feed" 
+                  component = {Feed} 
+                  options={{
+                    title: 'Q',
+                  }}
+                />
+                
+                <Stack.Screen 
+                  name = "Friends" 
+                  component = {FriendsTabs} 
+                />
+                
+                <Stack.Screen 
+                  name = "Me" 
+                  component = {Me} 
+                />
+              </Stack.Navigator>
+            </GetProfileDataContext.Provider>
           </MessagesDataContext.Provider>
         </RequestsDataContext.Provider>
       </FriendsDataContext.Provider>
