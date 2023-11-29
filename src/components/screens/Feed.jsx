@@ -7,7 +7,11 @@ import ScrollData from "../helper/ScrollData";
 import { useContext, useEffect, useState } from "react";
 import MessagesDataContext from "../contexts/MessagesDataContext";
 import MessageCard from "../helper/MessageCard";
+import MyUsernameDataContext from '../contexts/MyUsernameDataContext copy';
 export default function Feed ({ navigation }) {
+  const [messages,setMessages] = useContext(MessagesDataContext)
+  const [myUsername,setMyUsername] = useContext(MyUsernameDataContext)
+  useEffect(() => console.log(myUsername),[myUsername])
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
@@ -24,7 +28,7 @@ export default function Feed ({ navigation }) {
         </TouchableOpacity>
       ),
       headerRight: () => (
-        <TouchableOpacity onPress={() => navigation.push('Me',{name:'Kenjamin'})}>
+        <TouchableOpacity onPress={() => navigation.push('Me',{name:myUsername})}>
           <Image
             source={require('../../../assets/icons/musk.jpg')} 
             style={{ 
@@ -38,8 +42,8 @@ export default function Feed ({ navigation }) {
         </TouchableOpacity>
       ),
     });
-  }, [navigation]);
-  const [messages,setMessages] = useContext(MessagesDataContext)
+  }, [navigation])
+
   useEffect(() =>
     console.log(messages)
     ,[messages])

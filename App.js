@@ -10,6 +10,7 @@ import FriendsDataContext from './src/components/contexts/FriendsDataContext';
 import RequestsDataContext from './src/components/contexts/RequestsDataContext';
 import MessagesDataContext from './src/components/contexts/MessagesDataContext';
 import GetProfileFunctionContext from './src/components/contexts/GetProfileFunctionContext';
+import MyUsernameDataContext from './src/components/contexts/MyUsernameDataContext copy';
 import Profile from './src/components/screens/Profile';
 import RegisterScreen from './src/components/screens/RegisterScreen';
 import LoginScreen from './src/components/screens/LoginScreen';
@@ -21,6 +22,7 @@ export default function App() {
   const [requests,setRequests]=useState([])
   const [messages,setMessages]=useState([])
   const [profiles,setProfiles]=useState([])
+  const [myUsername,setMyUsername]=useState({})
   //a more permanent solution for styles is in the docs:
   //https://reactnavigation.org/docs/
   const styles = StyleSheet.create({
@@ -91,6 +93,7 @@ function handleLogin(usernameLogin, passwordLogin) {
   if (profiles[usernameLogin] !== undefined && profiles[usernameLogin].password === passwordLogin) {
     Alert.alert('Login successful!')
     setIsLoggedIn(true)
+    setMyUsername(usernameLogin)
   }
   else {
     Alert.alert('Incorrect username or password!')
@@ -100,9 +103,11 @@ function handleSignup(usernameLogin, password, cpassword) {
   if (password !== cpassword) {
     Alert.alert('Passwords not matching!')
   }
+  //TODO: Make this actually create a profile
   else {
     Alert.alert('Registration successful!')
     setIsLoggedIn(true)
+    setMyUsername(usernameLogin)
   }
 }
 if (isLoggedIn) {
@@ -114,35 +119,37 @@ if (isLoggedIn) {
         <RequestsDataContext.Provider value={[requests,setRequests]}>
           <MessagesDataContext.Provider value={[messages,setMessages]}>
             <GetProfileFunctionContext.Provider value={getProfile}>
-              <Stack.Navigator 
-                initialRouteName="route"
-                screenOptions={{
-                  headerStyle: {
-                    backgroundColor: '#000000'
-                  },
-                  headerTintColor: 'white',
-                }}>
-                <Stack.Screen 
-                  name = "Feed" 
-                  component = {Feed} 
-                  options={{
-                    title: 'Q',
-                  }}
-                />
-                
-                <Stack.Screen 
-                  name = "Friends" 
-                  component = {FriendsTabs} 
-                />
-                <Stack.Screen 
-                  name = "Profile" 
-                  component = {Profile} 
-                />
-                <Stack.Screen 
-                  name = "Me" 
-                  component = {Profile} 
-                />
-              </Stack.Navigator>
+              <MyUsernameDataContext.Provider value={[myUsername,setMyUsername]}>
+                <Stack.Navigator 
+                  initialRouteName="route"
+                  screenOptions={{
+                    headerStyle: {
+                      backgroundColor: '#000000'
+                    },
+                    headerTintColor: 'white',
+                  }}>
+                  <Stack.Screen 
+                    name = "Feed" 
+                    component = {Feed} 
+                    options={{
+                      title: 'Q',
+                    }}
+                  />
+                  
+                  <Stack.Screen 
+                    name = "Friends" 
+                    component = {FriendsTabs} 
+                  />
+                  <Stack.Screen 
+                    name = "Profile" 
+                    component = {Profile} 
+                  />
+                  <Stack.Screen 
+                    name = "Me" 
+                    component = {Profile}
+                  />
+                </Stack.Navigator>
+              </MyUsernameDataContext.Provider>
             </GetProfileFunctionContext.Provider>
           </MessagesDataContext.Provider>
         </RequestsDataContext.Provider>

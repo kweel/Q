@@ -12,7 +12,6 @@ export default function Profile(props) {
     const getProfile = useContext(GetProfileFunctionContext)
     const profileInfo = getProfile(props.route.params.name)
     console.log(props.route.params.name)
-    //TODO: Figure out bug with name and profile info not displaying except for the card
     return (
         profileInfo!==undefined ?
         <SafeAreaView style={{ flex: 1, backgroundColor: "#000000"}}>
