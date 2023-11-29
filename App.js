@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Feed from './src/components/screens/Feed'
-import FriendsTabs from './src/components/navigation/FriendsTabs';
+import FriendsTabs from './src/components/screens/FriendsTabs';
 import FriendsDataContext from './src/components/contexts/FriendsDataContext';
 import RequestsDataContext from './src/components/contexts/RequestsDataContext';
 import MessagesDataContext from './src/components/contexts/MessagesDataContext';

@@ -18,10 +18,10 @@ function FriendsTabs(props) {
       tabBarActiveTintColor: 'white',
     }}>
       <BottomTabs.Screen name="Current Friends" key = "Friends">
-        {props => <ScrollData {...props} data={friends} Element={FriendCard}/>}
+        {props => <ScrollData {...props} data={friends} Element={FriendCard} name = "friends"/>}
       </BottomTabs.Screen>
       <BottomTabs.Screen name="Requests" key = "Requests">
-        {props => <ScrollData {...props} data={requests} Element={FriendCard}/>}
+        {props => <ScrollData {...props} data={requests} Element={FriendCard} name = "requests"/>}
       </BottomTabs.Screen>
     </BottomTabs.Navigator>
   );
