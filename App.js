@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Feed from './src/components/screens/Feed'
-import Me from './src/components/screens/Me'
 import FriendsTabs from './src/components/navigation/FriendsTabs';
 import FriendsDataContext from './src/components/contexts/FriendsDataContext';
 import RequestsDataContext from './src/components/contexts/RequestsDataContext';
@@ -101,13 +100,12 @@ const getProfile = (username) => {
                   name = "Friends" 
                   component = {FriendsTabs} 
                 />
-                
-                <Stack.Screen 
-                  name = "Me" 
-                  component = {Me} 
-                />
                 <Stack.Screen 
                   name = "Profile" 
+                  component = {Profile} 
+                />
+                <Stack.Screen 
+                  name = "Me" 
                   component = {Profile} 
                 />
               </Stack.Navigator>

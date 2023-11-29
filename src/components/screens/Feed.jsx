@@ -24,7 +24,7 @@ export default function Feed ({ navigation }) {
         </TouchableOpacity>
       ),
       headerRight: () => (
-        <TouchableOpacity onPress={() => navigation.navigate('Me')}>
+        <TouchableOpacity onPress={() => navigation.push('Me',{name:'Kenjamin'})}>
           <Image
             source={require('../../../assets/icons/musk.jpg')} 
             style={{ 
