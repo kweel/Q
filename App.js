@@ -10,8 +10,8 @@ import FriendsTabs from './src/components/navigation/FriendsTabs';
 import FriendsDataContext from './src/components/contexts/FriendsDataContext';
 import RequestsDataContext from './src/components/contexts/RequestsDataContext';
 import MessagesDataContext from './src/components/contexts/MessagesDataContext';
-import GetProfileDataContext from './src/components/contexts/GetProfileDataContext';
-
+import GetProfileFunctionContext from './src/components/contexts/GetProfileFunctionContext';
+import Profile from './src/components/screens/Profile';
 export default function App() {
   const Stack = createNativeStackNavigator();
   const [friends,setFriends]=useState([])
@@ -44,7 +44,7 @@ export default function App() {
         {poster:'poster', title:'title', body:'body', id:15},
         {poster:'poster', title:'title', body:'body', id:17},
         {poster:'poster', title:'title', body:'body', id:18},
-        {poster:'poster', title:'title', body:'body', id:19},
+        {poster:'poster', title:'title', body:'body', id:1933},
         {poster:'poster', title:'title', body:'body', id:10},
         {poster:'poster', title:'title', body:'body', id:155},
         {poster:'poster', title:'title', body:'body', id:132},
@@ -57,14 +57,20 @@ export default function App() {
       //usernames MUST be unique, profile data will be fetched with username
       //messages might also be done through profiles? I want something centralized where data is scraped from one source
       //must be a database thing???
-      Jan:{friendDate:1010,todayQuote:{title:'bums', body:'ur a bum'},friendsList:['Ken','Sarah','LacrosseMan','poster','urmum','anubarak']},
-      Ken:{friendDate:10130,todayQuote:{title:'bums', body:'ur a bum'},friendsList:['Sarah','Jan','LacrosseMan','poster','urmum','anubarak']},
-      poster:{friendDate:10104,todayQuote:{title:'bums', body:'ur a bum'},friendsList:['Ken','Jan','LacrosseMan','Sarah','urmum','anubarak']},
-      Sarah:{friendDate:10810,todayQuote:{title:'bums', body:'ur a bum'},friendsList:['Ken','Jan','LacrosseMan','poster','urmum','anubarak']},
+      'Jan':{friendDate:1010,todayQuote:{title:'bums', body:'ur a bum'},friendsList:['Ken','Sarah','LacrosseMan','poster','urmum','anubarak']},
+      'Ken':{friendDate:10130,todayQuote:{title:'Kenji', body:'Kenjutsu'},friendsList:['Sarah','Jan','LacrosseMan','poster','urmum','anubarak']},
+      'poster':{friendDate:10104,todayQuote:{title:'post', body:'best relaxing instrumental erhu music 2019'},friendsList:['Ken','Jan','LacrosseMan','Sarah','urmum','anubarak']},
+      'Sarah':{friendDate:10810,todayQuote:{title:'all of you heathens', body:'blahblah my name sarah'},friendsList:['Ken','Jan','LacrosseMan','poster','urmum','anubarak']},
+      'Jan the Second':{ friendDate:"Never", todayQuote:{title:"If a  tree falls...", body:"who picks up the pieces?"},friendsList:['poster']},
+      'John':{friendDate:10810,todayQuote:{title:'Doe', body:'As the deer panteth for the water, so my soul longeth for Pocari Sweat'},friendsList:['Ken','Jan','LacrosseMan','poster','urmum','anubarak']},
+      'Kenjamin':{friendDate:10810,todayQuote:{title:'Kenjabin Denjakin', body:'Soup is good'},friendsList:['Ken','Jan','LacrosseMan','poster','urmum','anubarak']},
+      'Seraphin':{friendDate:10810,todayQuote:{title:'my name sera', body:'uggoggogg'},friendsList:['Ken','Jan','LacrosseMan','poster','urmum','anubarak']},
     })
 
 },[])
 const getProfile = (username) => {
+  //what if instead of getting information only, put navigate to profile screen?
+  //maybe I can do that in another function
   return profiles[username]
 }
   return (
@@ -74,7 +80,7 @@ const getProfile = (username) => {
       <FriendsDataContext.Provider value={[friends,setFriends]}>
         <RequestsDataContext.Provider value={[requests,setRequests]}>
           <MessagesDataContext.Provider value={[messages,setMessages]}>
-            <GetProfileDataContext.Provider value={getProfile}>
+            <GetProfileFunctionContext.Provider value={getProfile}>
               <Stack.Navigator 
                 initialRouteName="route"
                 screenOptions={{
@@ -100,8 +106,12 @@ const getProfile = (username) => {
                   name = "Me" 
                   component = {Me} 
                 />
+                <Stack.Screen 
+                  name = "Profile" 
+                  component = {Profile} 
+                />
               </Stack.Navigator>
-            </GetProfileDataContext.Provider>
+            </GetProfileFunctionContext.Provider>
           </MessagesDataContext.Provider>
         </RequestsDataContext.Provider>
       </FriendsDataContext.Provider>
