@@ -11,12 +11,27 @@ import RequestsDataContext from './src/components/contexts/RequestsDataContext';
 import MessagesDataContext from './src/components/contexts/MessagesDataContext';
 import GetProfileFunctionContext from './src/components/contexts/GetProfileFunctionContext';
 import Profile from './src/components/screens/Profile';
+import RegisterScreen from './src/components/screens/RegisterScreen';
+import LoginScreen from './src/components/screens/LoginScreen';
 export default function App() {
   const Stack = createNativeStackNavigator();
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isRegistering, setIsRegistering] = useState(false);
   const [friends,setFriends]=useState([])
   const [requests,setRequests]=useState([])
   const [messages,setMessages]=useState([])
   const [profiles,setProfiles]=useState([])
+  //a more permanent solution for styles is in the docs:
+  //https://reactnavigation.org/docs/
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: 'lightblue',
+    },
+  });
   //set contexts in the beginning. When we have backend, use fetch for this. For now it is hardcoded
   useEffect(() => {
     setFriends([
@@ -72,6 +87,18 @@ const getProfile = (username) => {
   //maybe I can do that in another function
   return profiles[username]
 }
+function handleLogin(usernameLogin, password) {
+  setIsLoggedIn(true)
+}
+function handleSignup(usernameLogin, password, cpassword) {
+  if (password !== cpassword) {
+    Alert.alert('Passwords not matching!')
+  }
+  else {
+    setIsLoggedIn(true)
+  }
+}
+if (isLoggedIn) {
   return (
     
     <NavigationContainer style={styles.container}>
@@ -115,15 +142,11 @@ const getProfile = (username) => {
       </FriendsDataContext.Provider>
     </NavigationContainer>
   );
+} else if (isRegistering) {
+  return <RegisterScreen handleSignup={handleSignup} setIsRegistering={setIsRegistering} />
+} else {
+  return <LoginScreen handleLogin={handleLogin} setIsRegistering={setIsRegistering} />
 }
-//a more permanent solution for styles is in the docs:
-//https://reactnavigation.org/docs/
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'lightblue',
-  },
-});
+
+ 
+}
