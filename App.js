@@ -9,12 +9,14 @@ import Me from './src/components/Me'
 import FriendsTabs from './src/components/navigation/FriendsTabs';
 import FriendsDataContext from './src/components/contexts/FriendsDataContext';
 import RequestsDataContext from './src/components/contexts/RequestsDataContext';
+import MessagesDataContext from './src/components/contexts/MessagesDataContext';
 
 
 export default function App() {
   const Stack = createNativeStackNavigator();
   const [friends,setFriends]=useState([])
   const [requests,setRequests]=useState([])
+  const [messages,setMessages]=useState([])
   useEffect(() => {
     setFriends([
       {name:'John', img:'img.jpg', username:'john1'},
@@ -34,34 +36,36 @@ export default function App() {
       <StatusBar barStyle="light-content" />
       <FriendsDataContext.Provider value={[friends,setFriends]}>
         <RequestsDataContext.Provider value={[requests,setRequests]}>
-      <Stack.Navigator 
-        initialRouteName="route"
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: '#000000'
-          },
-          headerTintColor: 'white',
-        }}>
-        <Stack.Screen 
-          name = "Feed" 
-          component = {Feed} 
-          options={{
-            title: 'Q',
-          }}
-        />
-        
-        <Stack.Screen 
-          name = "Friends" 
-          component = {FriendsTabs} 
-        />
-        
-        <Stack.Screen 
-          name = "Me" 
-          component = {Me} 
-        />
-      </Stack.Navigator>
-      </RequestsDataContext.Provider>
-        </FriendsDataContext.Provider>
+          <MessagesDataContext.Provider value={[messages,setMessages]}>
+            <Stack.Navigator 
+              initialRouteName="route"
+              screenOptions={{
+                headerStyle: {
+                  backgroundColor: '#000000'
+                },
+                headerTintColor: 'white',
+              }}>
+              <Stack.Screen 
+                name = "Feed" 
+                component = {Feed} 
+                options={{
+                  title: 'Q',
+                }}
+              />
+              
+              <Stack.Screen 
+                name = "Friends" 
+                component = {FriendsTabs} 
+              />
+              
+              <Stack.Screen 
+                name = "Me" 
+                component = {Me} 
+              />
+            </Stack.Navigator>
+          </MessagesDataContext.Provider>
+        </RequestsDataContext.Provider>
+      </FriendsDataContext.Provider>
     </NavigationContainer>
   );
 }

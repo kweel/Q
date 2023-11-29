@@ -1,8 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import ProfileScroll from '../ProfileScroll';
+import ScrollData from '../helper/ScrollData';
 import { useContext } from 'react';
 import FriendsDataContext from '../contexts/FriendsDataContext';
 import RequestsDataContext from '../contexts/RequestsDataContext';
+import FriendCard from '../helper/FriendCard';
 function FriendsTabs(props) {
   const BottomTabs = createBottomTabNavigator();
   const [friends,setFriends]=useContext(FriendsDataContext)
@@ -17,10 +18,10 @@ function FriendsTabs(props) {
       tabBarActiveTintColor: 'white',
     }}>
       <BottomTabs.Screen name="Current Friends" key = "Friends">
-        {props => <ProfileScroll {...props} data={friends}/>}
+        {props => <ScrollData {...props} data={friends} Element={FriendCard}/>}
       </BottomTabs.Screen>
       <BottomTabs.Screen name="Requests" key = "Requests">
-        {props => <ProfileScroll {...props} data={requests}/>}
+        {props => <ScrollData {...props} data={requests} Element={FriendCard}/>}
       </BottomTabs.Screen>
     </BottomTabs.Navigator>
   );
