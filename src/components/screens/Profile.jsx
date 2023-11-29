@@ -15,7 +15,7 @@ export default function Profile(props) {
     return (
         profileInfo!==undefined ?
         <SafeAreaView style={{ flex: 1, backgroundColor: "#000000"}}>
-            <Text style={{fontSize: 28, fontWeight: 600}}>{props.route.params.name}</Text>
+            <Text style={{fontSize: 28, fontWeight: 600}}>Name: {props.route.params.name}</Text>
             <Text style={{fontSize: 20}}>Friends since {profileInfo.friendDate}</Text>
             <Text style={{fontSize: 12}}>Today's quote:</Text>
             <MessageCard poster={profileInfo.name} title={profileInfo.todayQuote.title} body={profileInfo.todayQuote.body}/>

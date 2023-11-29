@@ -26,6 +26,7 @@ function LoginScreen(props) {
         <Button color="crimson" title="Login" onPress={() => {
             props.handleLogin(username, password)
         }} />
+        <Text style={{ fontSize: 10 }}>Working login: Username: Jan Password: password1</Text>
         <Pressable onPress={() => props.setIsRegistering(true)}><Text color="grey" style={{ fontSize: 18 }}>New here? Sign up!</Text></Pressable>
     </View>;
 }

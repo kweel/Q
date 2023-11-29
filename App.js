@@ -1,5 +1,5 @@
 // import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, StatusBar, Button } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Button, Alert } from 'react-native';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -71,14 +71,14 @@ export default function App() {
       //usernames MUST be unique, profile data will be fetched with username
       //messages might also be done through profiles? I want something centralized where data is scraped from one source
       //must be a database thing???
-      'Jan':{friendDate:1010,todayQuote:{title:'bums', body:'ur a bum'},friendsList:['Ken','Sarah','LacrosseMan','poster','urmum','anubarak']},
-      'Ken':{friendDate:10130,todayQuote:{title:'Kenji', body:'Kenjutsu'},friendsList:['Sarah','Jan','LacrosseMan','poster','urmum','anubarak']},
-      'poster':{friendDate:10104,todayQuote:{title:'post', body:'best relaxing instrumental erhu music 2019'},friendsList:['Ken','Jan','LacrosseMan','Sarah','urmum','anubarak']},
-      'Sarah':{friendDate:10810,todayQuote:{title:'all of you heathens', body:'blahblah my name sarah'},friendsList:['Ken','Jan','LacrosseMan','poster','urmum','anubarak']},
-      'Jan the Second':{ friendDate:"Never", todayQuote:{title:"If a  tree falls...", body:"who picks up the pieces?"},friendsList:['poster']},
-      'John':{friendDate:10810,todayQuote:{title:'Doe', body:'As the deer panteth for the water, so my soul longeth for Pocari Sweat'},friendsList:['Ken','Jan','LacrosseMan','poster','urmum','anubarak']},
-      'Kenjamin':{friendDate:10810,todayQuote:{title:'Kenjabin Denjakin', body:'Soup is good'},friendsList:['Ken','Jan','LacrosseMan','poster','urmum','anubarak']},
-      'Seraphin':{friendDate:10810,todayQuote:{title:'my name sera', body:'uggoggogg'},friendsList:['Ken','Jan','LacrosseMan','poster','urmum','anubarak']},
+      'Jan':{friendDate:1010,todayQuote:{title:'bums', body:'ur a bum'},friendsList:['Ken','Sarah','LacrosseMan','poster','urmum','anubarak'],password:'password1'},
+      'Ken':{friendDate:10130,todayQuote:{title:'Kenji', body:'Kenjutsu'},friendsList:['Sarah','Jan','LacrosseMan','poster','urmum','anubarak'],password:'password1'},
+      'poster':{friendDate:10104,todayQuote:{title:'post', body:'best relaxing instrumental erhu music 2019'},friendsList:['Ken','Jan','LacrosseMan','Sarah','urmum','anubarak'],password:'password1'},
+      'Sarah':{friendDate:10810,todayQuote:{title:'all of you heathens', body:'blahblah my name sarah'},friendsList:['Ken','Jan','LacrosseMan','poster','urmum','anubarak'],password:'password1'},
+      'Jan the Second':{ friendDate:"Never", todayQuote:{title:"If a  tree falls...", body:"who picks up the pieces?"},friendsList:['poster'],password:'password1'},
+      'John':{friendDate:10810,todayQuote:{title:'Doe', body:'As the deer panteth for the water, so my soul longeth for Pocari Sweat'},friendsList:['Ken','Jan','LacrosseMan','poster','urmum','anubarak'],password:'password1'},
+      'Kenjamin':{friendDate:10810,todayQuote:{title:'Kenjabin Denjakin', body:'Soup is good'},friendsList:['Ken','Jan','LacrosseMan','poster','urmum','anubarak'],password:'password1'},
+      'Seraphin':{friendDate:10810,todayQuote:{title:'my name sera', body:'uggoggogg'},friendsList:['Ken','Jan','LacrosseMan','poster','urmum','anubarak'],password:'password1'},
     })
 
 },[])
@@ -87,14 +87,21 @@ const getProfile = (username) => {
   //maybe I can do that in another function
   return profiles[username]
 }
-function handleLogin(usernameLogin, password) {
-  setIsLoggedIn(true)
+function handleLogin(usernameLogin, passwordLogin) {
+  if (profiles[usernameLogin] !== undefined && profiles[usernameLogin].password === passwordLogin) {
+    Alert.alert('Login successful!')
+    setIsLoggedIn(true)
+  }
+  else {
+    Alert.alert('Incorrect username or password!')
+  }
 }
 function handleSignup(usernameLogin, password, cpassword) {
   if (password !== cpassword) {
     Alert.alert('Passwords not matching!')
   }
   else {
+    Alert.alert('Registration successful!')
     setIsLoggedIn(true)
   }
 }
