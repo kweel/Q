@@ -12,12 +12,13 @@ export default function Profile(props) {
     const getProfile = useContext(GetProfileFunctionContext)
     const profileInfo = getProfile(props.route.params.name)
     console.log(props.route.params.name)
+    //TODO: Figure out bug with name and profile info not displaying except for the card
     return (
         profileInfo!==undefined ?
         <SafeAreaView style={{ flex: 1, backgroundColor: "#000000"}}>
-            <Text style={{fontSize: 28, fontWeight: 600}}>Name: {props.route.params.name}</Text>
-            <Text style={{fontSize: 20}}>Friends since {profileInfo.friendDate}</Text>
-            <Text style={{fontSize: 12}}>Today's quote:</Text>
+            <Text style={{fontSize: 28, fontWeight: 600, color:'white'}}>Name: {props.route.params.name}</Text>
+            <Text style={{fontSize: 20, color:'white'}}>Friends since {profileInfo.friendDate}</Text>
+            <Text style={{fontSize: 12, color:'white'}}>Today's quote:</Text>
             <MessageCard poster={profileInfo.name} title={profileInfo.todayQuote.title} body={profileInfo.todayQuote.body}/>
         </SafeAreaView>
     : <SafeAreaView style={{ flex: 1, backgroundColor: "#000000"}}>
