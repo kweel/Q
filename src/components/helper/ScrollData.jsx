@@ -8,7 +8,7 @@ export default function ScrollData({ data, Element }) {
             {
                 data.map(attributes => {
                     console.log('hey')
-                    return <Element {...attributes}/>
+                    return <Element key = {attributes.id} {...attributes}/>
                 })
             }
         </ScrollView>

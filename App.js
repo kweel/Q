@@ -17,17 +17,38 @@ export default function App() {
   const [friends,setFriends]=useState([])
   const [requests,setRequests]=useState([])
   const [messages,setMessages]=useState([])
+  //set contexts in the beginning. When we have backend, use fetch for this. For now it is hardcoded
   useEffect(() => {
     setFriends([
-      {name:'John', img:'img.jpg', username:'john1'},
-      {name:'Sarah', img:'img2.jpg', username:'sarah523'},
-      {name:'Ken', img:'img3.jpg', username:'kenbergkenson'},
+      {name:'John', img:'img.jpg', username:'john1', id:112},
+      {name:'Sarah', img:'img2.jpg', username:'sarah523', id:123},
+      {name:'Ken', img:'img3.jpg', username:'kenbergkenson', id:127},
       ])
+    },[])
+    useEffect(() => {
     setRequests([
-      {name:'Jan', img:'img.jpg', username:'john1'},
-      {name:'Seraphin', img:'img2.jpg', username:'sarah523'},
-      {name:'Kenjamin', img:'img3.jpg', username:'kenbergkenson'},
+      {name:'Jan', img:'img.jpg', username:'john1', id:128},
+      {name:'Seraphin', img:'img2.jpg', username:'sarah523', id:1322},
+      {name:'Kenjamin', img:'img3.jpg', username:'kenbergkenson', id:177},
       ])
+    },[])
+    useEffect(() => {
+      setMessages([
+        {poster:'Jan', title:'glorb', body:'I am a stick', id:1},
+        {poster:'Ken', title:'Dargibibi', body:'Bobbibbobbob hey hey hey', id:19},
+        {poster:'LacrosseMan', title:'img3.jpg', body:'kenbergkenson', id:12},
+        {poster:'poster', title:'title', body:'body', id:13},
+        {poster:'poster', title:'title', body:'body', id:14},
+        {poster:'poster', title:'title', body:'body', id:16},
+        {poster:'poster', title:'title', body:'body', id:15},
+        {poster:'poster', title:'title', body:'body', id:17},
+        {poster:'poster', title:'title', body:'body', id:18},
+        {poster:'poster', title:'title', body:'body', id:19},
+        {poster:'poster', title:'title', body:'body', id:10},
+        {poster:'poster', title:'title', body:'body', id:155},
+        {poster:'poster', title:'title', body:'body', id:132},
+        {poster:'poster', title:'title', body:'body', id:113},
+        ])
 
   },[])
   return (
