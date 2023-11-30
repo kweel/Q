@@ -1,4 +1,4 @@
-import { Text, View, Button, SafeAreaView } from "react-native";
+import { Text, View, Button, SafeAreaView, Image } from "react-native";
 import { useLinkProps } from '@react-navigation/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -15,10 +15,20 @@ export default function Profile(props) {
     return (
         profileInfo!==undefined ?
         <SafeAreaView style={{ flex: 1, backgroundColor: "#000000"}}>
+            <Image
+            source={require('../../../assets/icons/'+profileInfo.img)} 
+            style={{ 
+              width:28, 
+              height:28,
+              borderRadius: 12,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            />
             <Text style={{fontSize: 28, fontWeight: 600, color:'white'}}>Name: {props.route.params.name}</Text>
             <Text style={{fontSize: 20, color:'white'}}>Friends since {profileInfo.friendDate}</Text>
             <Text style={{fontSize: 12, color:'white'}}>Today's quote:</Text>
-            <MessageCard poster={profileInfo.name} title={profileInfo.todayQuote.title} body={profileInfo.todayQuote.body}/>
+            <MessageCard name={props.route.params.name}/>
         </SafeAreaView>
     : <SafeAreaView style={{ flex: 1, backgroundColor: "#000000"}}>
     <Text style={{fontSize: 28, fontWeight: 600, color:'white'}}>Profile not found!</Text>

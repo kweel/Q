@@ -40,62 +40,41 @@ export default function App() {
   });
   //fetch profile data (for now, hardcoded)
   //use myUsername to fetch my friendslist etc?
+  //TODO: make this dependent on profile
   useEffect(() => {
-    setFriends([
-      {name:'John', img:'img.jpg', username:'john1', id:112},
-      {name:'Sarah', img:'img2.jpg', username:'sarah523', id:123},
-      {name:'Ken', img:'img3.jpg', username:'kenbergkenson', id:127},
-      ])
+    setFriends(['John','Sarah','Ken'])
+    setRequests(['Jan','Seraphin','Kenjamin'])
     },[])
-    useEffect(() => {
-    setRequests([
-      {name:'Jan', img:'img.jpg', username:'john1', id:128},
-      {name:'Seraphin', img:'img2.jpg', username:'sarah523', id:1322},
-      {name:'Kenjamin', img:'img3.jpg', username:'kenbergkenson', id:177},
-      ])
-    },[])
-    useEffect(() => {
-      setMessages([
-        {poster:'Jan', title:'glorb', body:'I am a stick', id:1},
-        {poster:'Ken', title:'Dargibibi', body:'Bobbibbobbob hey hey hey', id:19},
-        {poster:'LacrosseMan', title:'img3.jpg', body:'kenbergkenson', id:12},
-        {poster:'poster', title:'title', body:'body', id:13},
-        {poster:'poster', title:'title', body:'body', id:14},
-        {poster:'poster', title:'title', body:'body', id:16},
-        {poster:'poster', title:'title', body:'body', id:15},
-        {poster:'poster', title:'title', body:'body', id:17},
-        {poster:'poster', title:'title', body:'body', id:18},
-        {poster:'poster', title:'title', body:'body', id:1933},
-        {poster:'poster', title:'title', body:'body', id:10},
-        {poster:'poster', title:'title', body:'body', id:155},
-        {poster:'poster', title:'title', body:'body', id:132},
-        {poster:'poster', title:'title', body:'body', id:113},
-        ])
 
-  },[])
   useEffect(() => {
     setProfiles({
       //usernames MUST be unique, profile data will be fetched with username
       //messages might also be done through profiles? I want something centralized where data is scraped from one source
       //must be a database thing???
-      'Jan':{friendDate:1010, username:'john1', img:'img.jpg',todayQuote:{title:'bums', body:'ur a bum'},friendsList:['Ken','Sarah','poster'],password:'password1'},
-      'Ken':{friendDate:10130, username:'kenbergkenson', img:'img.jpg',todayQuote:{title:'Kenji', body:'Kenjutsu'},friendsList:['Jan','Sarah','poster'],password:'password1'},
-      'poster':{friendDate:10104, username:'img_jpg', img:'img.jpg',todayQuote:{title:'post', body:'best relaxing instrumental erhu music 2019'},friendsList:['Ken','Sarah','Jan'],password:'password1'},
-      'Sarah':{friendDate:10810, username:'sarah523', img:'img.jpg',todayQuote:{title:'all of you heathens', body:'blahblah my name sarah'},friendsList:['Ken','Jan','poster'],password:'password1'},
-      'Jan the Second':{ friendDate:"Never", username:'jan2', img:'img.jpg', todayQuote:{title:"If a  tree falls...", body:"who picks up the pieces?"},friendsList:['Jan','John','Ken'],password:'password1'},
-      'John':{friendDate:10810, username:'jawnjawn', img:'img.jpg',todayQuote:{title:'Doe', body:'As the deer panteth for the water, so my soul longeth for Pocari Sweat'},friendsList:['Jan','Kenjamin','Ken','Seraphin'],password:'password1'},
-      'Kenjamin':{friendDate:10810, username:'kenjikenjikoko', img:'img.jpg',todayQuote:{title:'Kenjabin Denjakin', body:'Soup is good'},friendsList:['Jan','John','Ken','Sarah'],password:'password1'},
-      'Seraphin':{friendDate:10810, username:'notseraphimnotanangel', img:'img.jpg',todayQuote:{title:'my name sera', body:'uggoggogg'},friendsList:['Sarah','Jan the Second','Kenjamin'],password:'password1'},
+      'Jan':{'friendDate':1010, 'username':'john1', 'img':'musk.jpg','todayQuote':{title:'bums', body:'ur a bum'},'friendsList':['Ken','Sarah','poster'],'password':'password1'},
+      'Ken':{'friendDate':10130, 'username':'kenbergkenson', img:'musk.jpg','todayQuote':{title:'Kenji', body:'Kenjutsu'},friendsList:['Jan','Sarah','poster'],password:'password1'},
+      'poster':{'friendDate':10104, 'username':'img_jpg', img:'musk.jpg','todayQuote':{title:'post', body:'best relaxing instrumental erhu music 2019'},friendsList:['Ken','Sarah','Jan'],password:'password1'},
+      'Sarah':{'friendDate':10810, 'username':'sarah523', img:'musk.jpg','todayQuote':{title:'all of you heathens', body:'blahblah my name sarah'},friendsList:['Ken','Jan','poster'],password:'password1'},
+      'Jan the Second':{ 'friendDate':"Never", 'username':'jan2', img:'musk.jpg', 'todayQuote':{title:"If a  tree falls...", body:"who picks up the pieces?"},friendsList:['Jan','John','Ken'],password:'password1'},
+      'John':{'friendDate':10810, 'username':'jawnjawn', img:'musk.jpg','todayQuote':{title:'Doe', body:'As the deer panteth for the water, so my soul longeth for Pocari Sweat'},friendsList:['Jan','Kenjamin','Ken','Seraphin'],password:'password1'},
+      'Kenjamin':{'friendDate':10810, 'username':'kenjikenjikoko', img:'musk.jpg','todayQuote':{title:'Kenjabin Denjakin', body:'Soup is good'},friendsList:['Jan','John','Ken','Sarah'],password:'password1'},
+      'Seraphin':{'friendDate':10810, 'username':'notseraphimnotanangel', img:'musk.jpg','todayQuote':{title:'my name sera', body:'uggoggogg'},friendsList:['Sarah','Jan the Second','Kenjamin'],password:'password1'},
     })
 
 },[])
 useEffect(() => {
   setQuestion("What color is today's turkey?")
 },[])
-const getProfile = (username) => {
+const getProfile = (username,attribute) => {
   //what if instead of getting information only, put navigate to profile screen?
   //maybe I can do that in another function
-  return profiles[username]
+  if (attribute!==undefined) {
+    console.log(profiles[username])
+    return profiles[username][attribute]
+  }
+  else {
+    return profiles[username]
+  }
 }
 function handleLogin(usernameLogin, passwordLogin) {
   if (profiles[usernameLogin] !== undefined && profiles[usernameLogin].password === passwordLogin) {

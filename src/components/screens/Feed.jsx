@@ -5,15 +5,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ScrollData from "../helper/ScrollData";
 import { useContext, useEffect, useState } from "react";
-import MessagesDataContext from "../contexts/MessagesDataContext";
 import MessageCard from "../helper/MessageCard";
 import MyUsernameDataContext from '../contexts/MyUsernameDataContext';
 import { StyleSheet } from 'react-native';
 import PostedDataContext from '../contexts/PostedDataContext';
 import QuestionDataContext from '../contexts/QuestionDataContext';
 import PostModal from '../helper/PostModal';
+import FriendsDataContext from '../contexts/FriendsDataContext';
 export default function Feed ({ navigation }) {
-  const [messages,setMessages] = useContext(MessagesDataContext)
+  const [friends,setFriends] = useContext(FriendsDataContext)
   const [myUsername,setMyUsername] = useContext(MyUsernameDataContext)
   const [posted,setPosted] = useContext(PostedDataContext)
   const [question,setQuestion] = useContext(QuestionDataContext)
@@ -52,8 +52,8 @@ export default function Feed ({ navigation }) {
   }, [navigation])
 
   useEffect(() =>
-    console.log(messages)
-    ,[messages])
+    console.log(friends)
+    ,[friends])
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#000000"}}>
@@ -64,7 +64,7 @@ export default function Feed ({ navigation }) {
         <PostModal popSet={[modalShown,setModalShown]} question={question} handlePost={() => {setPosted(true)}}/>
       </View>
       : void(0)}
-      <ScrollData data={messages} Element={MessageCard} name="messages"/>
+      <ScrollData data={friends} Element={MessageCard} name="messages"/>
     </SafeAreaView>
     
   )
