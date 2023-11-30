@@ -21,7 +21,7 @@ export default function Profile(props) {
             <MessageCard poster={profileInfo.name} title={profileInfo.todayQuote.title} body={profileInfo.todayQuote.body}/>
         </SafeAreaView>
     : <SafeAreaView style={{ flex: 1, backgroundColor: "#000000"}}>
-    <Text style={{fontSize: 28, fontWeight: 600}}>Profile not found!</Text>
+    <Text style={{fontSize: 28, fontWeight: 600, color:'white'}}>Profile not found!</Text>
 </SafeAreaView>
     )
     }

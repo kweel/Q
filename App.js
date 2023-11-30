@@ -10,7 +10,7 @@ import FriendsDataContext from './src/components/contexts/FriendsDataContext';
 import RequestsDataContext from './src/components/contexts/RequestsDataContext';
 import MessagesDataContext from './src/components/contexts/MessagesDataContext';
 import GetProfileFunctionContext from './src/components/contexts/GetProfileFunctionContext';
-import MyUsernameDataContext from './src/components/contexts/MyUsernameDataContext copy';
+import MyUsernameDataContext from './src/components/contexts/MyUsernameDataContext';
 import Profile from './src/components/screens/Profile';
 import RegisterScreen from './src/components/screens/RegisterScreen';
 import LoginScreen from './src/components/screens/LoginScreen';

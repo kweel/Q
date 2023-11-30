@@ -7,7 +7,8 @@ import ScrollData from "../helper/ScrollData";
 import { useContext, useEffect, useState } from "react";
 import MessagesDataContext from "../contexts/MessagesDataContext";
 import MessageCard from "../helper/MessageCard";
-import MyUsernameDataContext from '../contexts/MyUsernameDataContext copy';
+import MyUsernameDataContext from '../contexts/MyUsernameDataContext';
+import { StyleSheet } from 'react-native';
 export default function Feed ({ navigation }) {
   const [messages,setMessages] = useContext(MessagesDataContext)
   const [myUsername,setMyUsername] = useContext(MyUsernameDataContext)
@@ -47,9 +48,25 @@ export default function Feed ({ navigation }) {
   useEffect(() =>
     console.log(messages)
     ,[messages])
+    /*
+      <View style={styles.blurOverlay}>
+        <Text style={{color:'white'}}></Text>
+      </View>
+    */
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#000000"}}>
       <ScrollData data={messages} Element={MessageCard} name="messages"/>
+      
     </SafeAreaView>
+    
   )
 }
+//from https://medium.com/@edabdallamo/creating-a-background-blur-effect-in-react-native-without-external-packages-96acd0437586
+const styles = StyleSheet.create({
+  blurOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 100,
+
+  },
+});
