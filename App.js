@@ -14,6 +14,8 @@ import MyUsernameDataContext from './src/components/contexts/MyUsernameDataConte
 import Profile from './src/components/screens/Profile';
 import RegisterScreen from './src/components/screens/RegisterScreen';
 import LoginScreen from './src/components/screens/LoginScreen';
+import PostedDataContext from './src/components/contexts/PostedDataContext';
+import QuestionDataContext from './src/components/contexts/QuestionDataContext';
 export default function App() {
   const Stack = createNativeStackNavigator();
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -23,6 +25,8 @@ export default function App() {
   const [messages,setMessages]=useState([])
   const [profiles,setProfiles]=useState([])
   const [myUsername,setMyUsername]=useState({})
+  const [posted,setPosted]=useState(false)
+  const [question,setQuestion]=useState('')
   //a more permanent solution for styles is in the docs:
   //https://reactnavigation.org/docs/
   const styles = StyleSheet.create({
@@ -84,6 +88,9 @@ export default function App() {
     })
 
 },[])
+useEffect(() => {
+  setQuestion("What color is today's turkey?")
+},[])
 const getProfile = (username) => {
   //what if instead of getting information only, put navigate to profile screen?
   //maybe I can do that in another function
@@ -120,35 +127,39 @@ if (isLoggedIn) {
           <MessagesDataContext.Provider value={[messages,setMessages]}>
             <GetProfileFunctionContext.Provider value={getProfile}>
               <MyUsernameDataContext.Provider value={[myUsername,setMyUsername]}>
-                <Stack.Navigator 
-                  initialRouteName="route"
-                  screenOptions={{
-                    headerStyle: {
-                      backgroundColor: '#000000'
-                    },
-                    headerTintColor: 'white',
-                  }}>
-                  <Stack.Screen 
-                    name = "Feed" 
-                    component = {Feed} 
-                    options={{
-                      title: 'Q',
-                    }}
-                  />
-                  
-                  <Stack.Screen 
-                    name = "Friends" 
-                    component = {FriendsTabs} 
-                  />
-                  <Stack.Screen 
-                    name = "Profile" 
-                    component = {Profile} 
-                  />
-                  <Stack.Screen 
-                    name = "Me" 
-                    component = {Profile}
-                  />
-                </Stack.Navigator>
+                <PostedDataContext.Provider value={[posted,setPosted]}>
+                  <QuestionDataContext.Provider value={[question,setQuestion]}>
+                    <Stack.Navigator 
+                      initialRouteName="route"
+                      screenOptions={{
+                        headerStyle: {
+                          backgroundColor: '#000000'
+                        },
+                        headerTintColor: 'white',
+                      }}>
+                      <Stack.Screen 
+                        name = "Feed" 
+                        component = {Feed} 
+                        options={{
+                          title: 'Q',
+                        }}
+                      />
+                      
+                      <Stack.Screen 
+                        name = "Friends" 
+                        component = {FriendsTabs} 
+                      />
+                      <Stack.Screen 
+                        name = "Profile" 
+                        component = {Profile} 
+                      />
+                      <Stack.Screen 
+                        name = "Me" 
+                        component = {Profile}
+                      />
+                    </Stack.Navigator>
+                  </QuestionDataContext.Provider>
+                </PostedDataContext.Provider>
               </MyUsernameDataContext.Provider>
             </GetProfileFunctionContext.Provider>
           </MessagesDataContext.Provider>
