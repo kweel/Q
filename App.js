@@ -38,7 +38,8 @@ export default function App() {
       color: 'lightblue',
     },
   });
-  //set contexts in the beginning. When we have backend, use fetch for this. For now it is hardcoded
+  //fetch profile data (for now, hardcoded)
+  //use myUsername to fetch my friendslist etc?
   useEffect(() => {
     setFriends([
       {name:'John', img:'img.jpg', username:'john1', id:112},
@@ -77,14 +78,14 @@ export default function App() {
       //usernames MUST be unique, profile data will be fetched with username
       //messages might also be done through profiles? I want something centralized where data is scraped from one source
       //must be a database thing???
-      'Jan':{friendDate:1010,todayQuote:{title:'bums', body:'ur a bum'},friendsList:['Ken','Sarah','LacrosseMan','poster','urmum','anubarak'],password:'password1'},
-      'Ken':{friendDate:10130,todayQuote:{title:'Kenji', body:'Kenjutsu'},friendsList:['Sarah','Jan','LacrosseMan','poster','urmum','anubarak'],password:'password1'},
-      'poster':{friendDate:10104,todayQuote:{title:'post', body:'best relaxing instrumental erhu music 2019'},friendsList:['Ken','Jan','LacrosseMan','Sarah','urmum','anubarak'],password:'password1'},
-      'Sarah':{friendDate:10810,todayQuote:{title:'all of you heathens', body:'blahblah my name sarah'},friendsList:['Ken','Jan','LacrosseMan','poster','urmum','anubarak'],password:'password1'},
-      'Jan the Second':{ friendDate:"Never", todayQuote:{title:"If a  tree falls...", body:"who picks up the pieces?"},friendsList:['poster'],password:'password1'},
-      'John':{friendDate:10810,todayQuote:{title:'Doe', body:'As the deer panteth for the water, so my soul longeth for Pocari Sweat'},friendsList:['Ken','Jan','LacrosseMan','poster','urmum','anubarak'],password:'password1'},
-      'Kenjamin':{friendDate:10810,todayQuote:{title:'Kenjabin Denjakin', body:'Soup is good'},friendsList:['Ken','Jan','LacrosseMan','poster','urmum','anubarak'],password:'password1'},
-      'Seraphin':{friendDate:10810,todayQuote:{title:'my name sera', body:'uggoggogg'},friendsList:['Ken','Jan','LacrosseMan','poster','urmum','anubarak'],password:'password1'},
+      'Jan':{friendDate:1010, username:'john1', img:'img.jpg',todayQuote:{title:'bums', body:'ur a bum'},friendsList:['Ken','Sarah','poster'],password:'password1'},
+      'Ken':{friendDate:10130, username:'kenbergkenson', img:'img.jpg',todayQuote:{title:'Kenji', body:'Kenjutsu'},friendsList:['Jan','Sarah','poster'],password:'password1'},
+      'poster':{friendDate:10104, username:'img_jpg', img:'img.jpg',todayQuote:{title:'post', body:'best relaxing instrumental erhu music 2019'},friendsList:['Ken','Sarah','Jan'],password:'password1'},
+      'Sarah':{friendDate:10810, username:'sarah523', img:'img.jpg',todayQuote:{title:'all of you heathens', body:'blahblah my name sarah'},friendsList:['Ken','Jan','poster'],password:'password1'},
+      'Jan the Second':{ friendDate:"Never", username:'jan2', img:'img.jpg', todayQuote:{title:"If a  tree falls...", body:"who picks up the pieces?"},friendsList:['Jan','John','Ken'],password:'password1'},
+      'John':{friendDate:10810, username:'jawnjawn', img:'img.jpg',todayQuote:{title:'Doe', body:'As the deer panteth for the water, so my soul longeth for Pocari Sweat'},friendsList:['Jan','Kenjamin','Ken','Seraphin'],password:'password1'},
+      'Kenjamin':{friendDate:10810, username:'kenjikenjikoko', img:'img.jpg',todayQuote:{title:'Kenjabin Denjakin', body:'Soup is good'},friendsList:['Jan','John','Ken','Sarah'],password:'password1'},
+      'Seraphin':{friendDate:10810, username:'notseraphimnotanangel', img:'img.jpg',todayQuote:{title:'my name sera', body:'uggoggogg'},friendsList:['Sarah','Jan the Second','Kenjamin'],password:'password1'},
     })
 
 },[])
