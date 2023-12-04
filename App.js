@@ -24,7 +24,7 @@ export default function App() {
   const [requests,setRequests]=useState([])
   const [messages,setMessages]=useState([])
   const [profiles,setProfiles]=useState([])
-  const [myUsername,setMyUsername]=useState({})
+  const [myUsername,setMyUsername]=useState("Jan")
   const [posted,setPosted]=useState(false)
   const [question,setQuestion]=useState('')
   //a more permanent solution for styles is in the docs:
@@ -41,24 +41,24 @@ export default function App() {
   //fetch profile data (for now, hardcoded)
   //use myUsername to fetch my friendslist etc?
   //TODO: make this dependent on profile
+  
   useEffect(() => {
     setFriends(['John','Sarah','Ken'])
     setRequests(['Jan','Seraphin','Kenjamin'])
     },[])
-
   useEffect(() => {
     setProfiles({
       //usernames MUST be unique, profile data will be fetched with username
       //messages might also be done through profiles? I want something centralized where data is scraped from one source
       //must be a database thing???
       'Jan':{'friendDate':1010, 'username':'john1', 'img':'musk.jpg','todayQuote':{title:'bums', body:'ur a bum'},'friendsList':['Ken','Sarah','poster'],'password':'password1'},
-      'Ken':{'friendDate':10130, 'username':'kenbergkenson', img:'musk.jpg','todayQuote':{title:'Kenji', body:'Kenjutsu'},friendsList:['Jan','Sarah','poster'],password:'password1'},
-      'poster':{'friendDate':10104, 'username':'img_jpg', img:'musk.jpg','todayQuote':{title:'post', body:'best relaxing instrumental erhu music 2019'},friendsList:['Ken','Sarah','Jan'],password:'password1'},
-      'Sarah':{'friendDate':10810, 'username':'sarah523', img:'musk.jpg','todayQuote':{title:'all of you heathens', body:'blahblah my name sarah'},friendsList:['Ken','Jan','poster'],password:'password1'},
-      'Jan the Second':{ 'friendDate':"Never", 'username':'jan2', img:'musk.jpg', 'todayQuote':{title:"If a  tree falls...", body:"who picks up the pieces?"},friendsList:['Jan','John','Ken'],password:'password1'},
-      'John':{'friendDate':10810, 'username':'jawnjawn', img:'musk.jpg','todayQuote':{title:'Doe', body:'As the deer panteth for the water, so my soul longeth for Pocari Sweat'},friendsList:['Jan','Kenjamin','Ken','Seraphin'],password:'password1'},
-      'Kenjamin':{'friendDate':10810, 'username':'kenjikenjikoko', img:'musk.jpg','todayQuote':{title:'Kenjabin Denjakin', body:'Soup is good'},friendsList:['Jan','John','Ken','Sarah'],password:'password1'},
-      'Seraphin':{'friendDate':10810, 'username':'notseraphimnotanangel', img:'musk.jpg','todayQuote':{title:'my name sera', body:'uggoggogg'},friendsList:['Sarah','Jan the Second','Kenjamin'],password:'password1'},
+      'Ken':{'friendDate':10130, 'username':'kenbergkenson', 'img':'musk.jpg','todayQuote':{title:'Kenji', body:'Kenjutsu'},'friendsList':['Jan','Sarah','poster'],'password':'password1'},
+      'poster':{'friendDate':10104, 'username':'img_jpg', 'img':'musk.jpg','todayQuote':{title:'post', body:'best relaxing instrumental erhu music 2019'},'friendsList':['Ken','Sarah','Jan'],'password':'password1'},
+      'Sarah':{'friendDate':10810, 'username':'sarah523', 'img':'musk.jpg','todayQuote':{title:'all of you heathens', body:'blahblah my name sarah'},'friendsList':['Ken','Jan','poster'],'password':'password1'},
+      'Jan the Second':{ 'friendDate':"Never", 'username':'jan2', 'img':'musk.jpg', 'todayQuote':{title:"If a  tree falls...", body:"who picks up the pieces?"},'friendsList':['Jan','John','Ken'],'password':'password1'},
+      'John':{'friendDate':10810, 'username':'jawnjawn', 'img':'musk.jpg','todayQuote':{title:'Doe', body:'As the deer panteth for the water, so my soul longeth for Pocari Sweat'},'friendsList':['Jan','Kenjamin','Ken','Seraphin'],'password':'password1'},
+      'Kenjamin':{'friendDate':10810, 'username':'kenjikenjikoko', 'img':'musk.jpg','todayQuote':{title:'Kenjabin Denjakin', body:'Soup is good'},'friendsList':['Jan','John','Ken','Sarah'],'password':'password1'},
+      'Seraphin':{'friendDate':10810, 'username':'notseraphimnotanangel', 'img':'musk.jpg','todayQuote':{title:'my name sera', body:'uggoggogg'},'friendsList':['Sarah','Jan the Second','Kenjamin'],'password':'password1'},
     })
 
 },[])
@@ -94,7 +94,8 @@ function handleSignup(usernameLogin, password, cpassword) {
   else {
     Alert.alert('Registration successful!')
     setIsLoggedIn(true)
-    setMyUsername(usernameLogin)
+    if (usernameLogin !== '')
+    {setMyUsername(usernameLogin)}
   }
 }
 if (isLoggedIn) {

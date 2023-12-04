@@ -12,6 +12,7 @@ export default function Profile(props) {
     const getProfile = useContext(GetProfileFunctionContext)
     const profileInfo = getProfile(props.route.params.name)
     console.log(props.route.params.name)
+    console.log(profileInfo.img)
     return (
         profileInfo!==undefined ?
         <SafeAreaView style={{ flex: 1, backgroundColor: "#000000"}}>
