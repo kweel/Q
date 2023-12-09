@@ -1,5 +1,7 @@
 // import { StatusBar } from 'expo-status-bar';
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+
 import { StyleSheet, Text, View, StatusBar, Button, Alert } from 'react-native';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
@@ -28,6 +30,7 @@ const firebaseConfig = {
   appId: "1:241617465106:web:1a1bc1e0689fd7a1b04dcb"
 };
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 export default function App() {
   const Stack = createNativeStackNavigator();
