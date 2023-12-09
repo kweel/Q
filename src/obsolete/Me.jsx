@@ -1,14 +1,14 @@
-import { Text, View, Button, SafeAreaView, ScrollView } from "react-native";
+import { Text, View, Button, SafeAreaView } from "react-native";
 import { useLinkProps } from '@react-navigation/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Profile from "../components/screens/Profile";
 
-export default function Friends({ navigation }) {
+export default function Me({ navigation }) {
+  
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#000000"}}>
-      <ScrollView>
-        
-      </ScrollView>
+      <Profile name='poster'/>
     </SafeAreaView>
   )
 }
