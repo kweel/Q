@@ -1,6 +1,6 @@
 // import { StatusBar } from 'expo-status-bar';
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { app } from './firebaseConfig';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 import { StyleSheet, Text, View, StatusBar, Button, Alert } from 'react-native';
 import * as React from 'react';
@@ -20,19 +20,9 @@ import LoginScreen from './src/components/screens/LoginScreen';
 import PostedDataContext from './src/components/contexts/PostedDataContext';
 import QuestionDataContext from './src/components/contexts/QuestionDataContext';
 
-// firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyCZoSrcDSyOdPju-1SZ3S18WTjRFCiMMkM",
-  authDomain: "q-407-ba1c7.firebaseapp.com",
-  projectId: "q-407-ba1c7",
-  storageBucket: "q-407-ba1c7.appspot.com",
-  messagingSenderId: "241617465106",
-  appId: "1:241617465106:web:1a1bc1e0689fd7a1b04dcb"
-};
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
 export default function App() {
+  let auth = getAuth();
+
   const Stack = createNativeStackNavigator();
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isRegistering, setIsRegistering] = useState(false);
@@ -92,27 +82,47 @@ const getProfile = (username,attribute) => {
     return profiles[username]
   }
 }
-function handleLogin(usernameLogin, passwordLogin) {
-  if (profiles[usernameLogin] !== undefined && profiles[usernameLogin].password === passwordLogin) {
-    Alert.alert('Login successful!')
-    setIsLoggedIn(true)
-    setMyUsername(usernameLogin)
-  }
-  else {
-    Alert.alert('Incorrect username or password!')
-  }
+function handleLogin(email, passwordLogin) {
+  
+
+  // if (profiles[usernameLogin] !== undefined && profiles[usernameLogin].password === passwordLogin) {
+  //   Alert.alert('Login successful!')
+  //   setIsLoggedIn(true)
+  //   setMyUsername(usernameLogin)
+  // }
+  // else {
+  //   Alert.alert('Incorrect username or password!')
+  // }
 }
-function handleSignup(usernameLogin, password, cpassword) {
-  if (password !== cpassword) {
+function handleSignup(email, usernameLogin, password, cpassword) {
+  if (email !== '' || usernameLogin !== '') {
+    Alert.alert('Invalid information')
+  }
+  else if (password !== cpassword) {
     Alert.alert('Passwords not matching!')
   }
-  //TODO: Make this actually create a profile
   else {
-    Alert.alert('Registration successful!')
-    setIsLoggedIn(true)
-    if (usernameLogin !== '')
-    {setMyUsername(usernameLogin)}
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      Alert.alert(error.message)
+    });
   }
+
+  // if (password !== cpassword) {
+  //   Alert.alert('Passwords not matching!')
+  // }
+  // //TODO: Make this actually create a profile
+  // else {
+  //   Alert.alert('Registration successful!')
+  //   setIsLoggedIn(true)
+  //   if (usernameLogin !== '')
+  //   {setMyUsername(usernameLogin)}
+  // }
 }
 if (isLoggedIn) {
   return (
