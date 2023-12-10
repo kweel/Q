@@ -1,4 +1,7 @@
 // import { StatusBar } from 'expo-status-bar';
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+
 import { StyleSheet, Text, View, StatusBar, Button, Alert } from 'react-native';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
@@ -16,6 +19,19 @@ import RegisterScreen from './src/components/screens/RegisterScreen';
 import LoginScreen from './src/components/screens/LoginScreen';
 import PostedDataContext from './src/components/contexts/PostedDataContext';
 import QuestionDataContext from './src/components/contexts/QuestionDataContext';
+
+// firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyCZoSrcDSyOdPju-1SZ3S18WTjRFCiMMkM",
+  authDomain: "q-407-ba1c7.firebaseapp.com",
+  projectId: "q-407-ba1c7",
+  storageBucket: "q-407-ba1c7.appspot.com",
+  messagingSenderId: "241617465106",
+  appId: "1:241617465106:web:1a1bc1e0689fd7a1b04dcb"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 export default function App() {
   const Stack = createNativeStackNavigator();
   const [isLoggedIn, setIsLoggedIn] = useState(false)
