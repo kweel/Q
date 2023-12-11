@@ -1,7 +1,7 @@
 // import { StatusBar } from 'expo-status-bar';
 import { app, db } from './firebaseConfig';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { collection, getDoc, setDoc, doc, getDocs } from "firebase/firestore"; 
+import { collection, getDoc, setDoc, doc } from "firebase/firestore"; 
 
 import { StyleSheet, Text, View, StatusBar, Button, Alert } from 'react-native';
 import * as React from 'react';
@@ -94,7 +94,7 @@ async function handleLogin(emailLogin, password) {
     // ...
     setIsLoggedIn(true)
 
-    // TODO: update info for user
+    // update info for user
     const docRef = doc(db, "users", emailLogin);
     const docSnap = await getDoc(docRef);
 
@@ -142,7 +142,8 @@ async function handleSignup(emailLogin, usernameLogin, password, cpassword) {
       // store info in firestore
       await setDoc(doc(db, "users", emailLogin), {
         username: usernameLogin,
-        email: emailLogin
+        email: emailLogin,
+        friendsList : []
       });
 
       setMyUsername(usernameLogin)
@@ -154,16 +155,8 @@ async function handleSignup(emailLogin, usernameLogin, password, cpassword) {
     });
   }
 
-  // if (password !== cpassword) {
-  //   Alert.alert('Passwords not matching!')
-  // }
-  // //TODO: Make this actually create a profile
-  // else {
-  //   Alert.alert('Registration successful!')
-  //   setIsLoggedIn(true)
-  //   if (usernameLogin !== '')
-  //   {setMyUsername(usernameLogin)}
-  // }
+
+
 }
 if (isLoggedIn) {
   return (
