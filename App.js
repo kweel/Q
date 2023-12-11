@@ -83,25 +83,25 @@ const getProfile = (username,attribute) => {
     return profiles[username]
   }
 }
-function handleLogin(email, password) {
+async function handleLogin(email, password) {
   signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
+  .then(async (userCredential) => {
     // Signed in 
     const user = userCredential.user;
     // ...
     setIsLoggedIn(true)
 
   // TODO: update info for user
-  const docRef = doc(db, "users", email);
+  const docRef = doc(db, "users", email.trim());
+  const docSnap = await getDoc(docRef);
 
-  getDoc(docRef).then(docSnap => {
-    docSnap.doc.map()
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-    } else {
-      console.log("No such document!");
-    }
-  })
+  if (docSnap.exists()) {
+    alert("Document data:", docSnap.data());
+  } else {
+    // docSnap.data() will be undefined in this case
+    alert("No such document!");
+  }
+
   // if (docSnap.exists()) {
   //   alert("Document data:", docSnap.data());
   // } else {
@@ -127,7 +127,7 @@ function handleLogin(email, password) {
   // }
 }
 
-function handleSignup(emailLogin, usernameLogin, password, cpassword) {
+async function handleSignup(emailLogin, usernameLogin, password, cpassword) {
   if (emailLogin === '' || usernameLogin === '') {
     alert('Invalid information')
   }
@@ -136,14 +136,14 @@ function handleSignup(emailLogin, usernameLogin, password, cpassword) {
   }
   else {
     createUserWithEmailAndPassword(auth, emailLogin, password)
-    .then((userCredential) => {
+    .then(async (userCredential) => {
       // Signed in 
       const user = userCredential.user;
       // ...
       setIsLoggedIn(true)
       
       // store info in firestore
-      setDoc(doc(db, "users", emailLogin), {
+      await setDoc(doc(db, "users", emailLogin.trim()), {
         username: usernameLogin,
         email: emailLogin
       });
