@@ -1,7 +1,7 @@
 // import { StatusBar } from 'expo-status-bar';
 import { app, db } from './firebaseConfig';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { collection, getDoc, setDoc, doc } from "firebase/firestore"; 
+import { collection, getDoc, setDoc, doc, updateDoc } from "firebase/firestore"; 
 
 import { StyleSheet, Text, View, StatusBar, Button, Alert } from 'react-native';
 import * as React from 'react';
@@ -34,6 +34,7 @@ export default function App() {
   const [messages,setMessages]=useState([])
   const [profiles,setProfiles]=useState([])
   const [myUsername,setMyUsername]=useState([])
+  const [myEmail,setMyEmail]=useState([])
   const [posted,setPosted]=useState(false)
   const [question,setQuestion]=useState('')
   //a more permanent solution for styles is in the docs:
@@ -101,6 +102,7 @@ async function handleLogin(emailLogin, password) {
     if (docSnap.exists()) {
       const data = docSnap.data()
       setMyUsername(data.username)
+      setMyEmail(data.email)
 
     } else {
       // docSnap.data() will be undefined in this case
@@ -137,16 +139,17 @@ async function handleSignup(emailLogin, usernameLogin, password, cpassword) {
       // Signed in 
       const user = userCredential.user;
       // ...
-      setIsLoggedIn(true)
-      
+      setIsLoggedIn(true)      
       // store info in firestore
       await setDoc(doc(db, "users", emailLogin), {
         username: usernameLogin,
         email: emailLogin,
-        friendsList : []
+        friendsList : [],
+        todayQuote : {}
       });
 
       setMyUsername(usernameLogin)
+      setMyEmail(emailLogin)
       setIsLoggedIn(true)
 
     })
@@ -154,10 +157,22 @@ async function handleSignup(emailLogin, usernameLogin, password, cpassword) {
       alert(error.message)
     });
   }
-
-
-
 }
+
+// TODO: connect this to post button
+function handlePost(myTitle, myMessage) {
+  const docToUpdate = doc(db, "users", myUsername);
+  updateDoc(docToUpdate, {
+    todayQuote : {title : myTitle, body : myMessage}
+  })
+    .then(() => {
+      console.log("Data updated");
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+}
+
 if (isLoggedIn) {
   return (
     
