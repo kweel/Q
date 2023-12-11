@@ -1,6 +1,8 @@
 // import { StatusBar } from 'expo-status-bar';
 import { app } from './firebaseConfig';
+import { getAuth, createUserWithEmailAndPassword} from "firebase/auth";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
 
 import { StyleSheet, Text, View, StatusBar, Button, Alert } from 'react-native';
 import * as React from 'react';
@@ -82,8 +84,22 @@ const getProfile = (username,attribute) => {
     return profiles[username]
   }
 }
-function handleLogin(email, passwordLogin) {
-  
+function handleLogin(email, password) {
+  signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    // ...
+    setIsLoggedIn(true)
+
+  // TODO: update info for user
+
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    Alert.alert(error.message)
+  });
 
   // if (profiles[usernameLogin] !== undefined && profiles[usernameLogin].password === passwordLogin) {
   //   Alert.alert('Login successful!')
@@ -94,6 +110,7 @@ function handleLogin(email, passwordLogin) {
   //   Alert.alert('Incorrect username or password!')
   // }
 }
+
 function handleSignup(email, usernameLogin, password, cpassword) {
   if (email !== '' || usernameLogin !== '') {
     Alert.alert('Invalid information')
@@ -102,11 +119,16 @@ function handleSignup(email, usernameLogin, password, cpassword) {
     Alert.alert('Passwords not matching!')
   }
   else {
-    signInWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
       // ...
+      setIsLoggedIn(true)
+      // TODO: store info in firestore
+
+      setMyUsername(usernameLogin)
+
     })
     .catch((error) => {
       Alert.alert(error.message)
