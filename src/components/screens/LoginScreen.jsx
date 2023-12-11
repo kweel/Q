@@ -2,19 +2,19 @@ import { Alert, Button, StyleSheet, Text, View, TextInput, Pressable } from "rea
 import { useState, useEffect } from "react";
 function LoginScreen(props) {
     //from https://reactnative.dev/docs/textinput
-    const [username,setUsername]=useState('')
+    const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
     return <View style={styles.container}>
         <Text style={{ fontSize: 36 }}>Q</Text>
         <Text style={{ fontSize: 30 }}>Thinking deeply.</Text>
-        <Text style={{ fontSize: 25 }}>Username</Text>
+        <Text style={{ fontSize: 25 }}>Email</Text>
         <TextInput style = {{
             height: 40,
             margin: 12,
             borderWidth: 1,
             padding: 10,
         }} 
-  onChangeText={setUsername} value = {username}/>
+  onChangeText={setEmail} value = {email}/>
         <Text style={{ fontSize: 25 }}>Password</Text>
         <TextInput  style = {{
             height: 40,
@@ -24,9 +24,9 @@ function LoginScreen(props) {
         }} 
         secureTextEntry={true} onChangeText={setPassword} value = {password}/>
         <Button color="crimson" title="Login" onPress={() => {
-            props.handleLogin(username, password)
+            props.handleLogin(email, password)
         }} />
-        <Text style={{ fontSize: 10 }}>Working login: Username: Jan Password: password1</Text>
+        <Text style={{ fontSize: 10 }}>Working login: Email: asdf@gmail.com Password: asdfgh</Text>
         <Pressable onPress={() => props.setIsRegistering(true)}><Text color="grey" style={{ fontSize: 18 }}>New here? Sign up!</Text></Pressable>
     </View>;
 }

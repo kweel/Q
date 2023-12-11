@@ -117,7 +117,6 @@ function handleSignup(email, usernameLogin, password, cpassword) {
     alert('Passwords not matching!')
   }
   else {
-    alert('hi3')
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
