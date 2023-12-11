@@ -35,8 +35,8 @@ function PostModal(props) {
                 padding: 10,
             }} 
             onChangeText={setMessage} value = {message}/>
-      <Button title="Post" color="blue" onPress={()=>props.handlePost(title,message)}></Button>
-      <Button title="Cancel" color="red" onPress={()=>setPopoutShown(false)}></Button>
+      <Button title="Post" color="blue" onPress={()=>props.handlePost(title, message)} />
+      <Button title="Cancel" color="red" onPress={()=>setPopoutShown(false)} />
     </View>
   </Modal>
 }

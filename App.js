@@ -17,6 +17,7 @@ import GetProfileFunctionContext from './src/components/contexts/GetProfileFunct
 import MyUsernameDataContext from './src/components/contexts/MyUsernameDataContext';
 import Profile from './src/components/screens/Profile';
 import RegisterScreen from './src/components/screens/RegisterScreen';
+import PostModal from './src/components/helper/PosttModal';
 import LoginScreen from './src/components/screens/LoginScreen';
 import PostedDataContext from './src/components/contexts/PostedDataContext';
 import QuestionDataContext from './src/components/contexts/QuestionDataContext';
@@ -145,7 +146,7 @@ async function handleSignup(emailLogin, usernameLogin, password, cpassword) {
         username: usernameLogin,
         email: emailLogin,
         friendsList : [],
-        todayQuote : {}
+        todayQuote : {title : "", body : ""}
       });
 
       setMyUsername(usernameLogin)
@@ -160,10 +161,10 @@ async function handleSignup(emailLogin, usernameLogin, password, cpassword) {
 }
 
 // TODO: connect this to post button
-function handlePost(myTitle, myMessage) {
+function handlePost(title, message) {
   const docToUpdate = doc(db, "users", myUsername);
   updateDoc(docToUpdate, {
-    todayQuote : {title : myTitle, body : myMessage}
+    todayQuote : {title : title, body : message}
   })
     .then(() => {
       console.log("Data updated");
