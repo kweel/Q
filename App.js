@@ -1,6 +1,7 @@
 // import { StatusBar } from 'expo-status-bar';
 import { app, db } from './firebaseConfig';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { collection, addDoc , setDoc, doc} from "firebase/firestore"; 
 
 import { StyleSheet, Text, View, StatusBar, Button, Alert } from 'react-native';
 import * as React from 'react';
@@ -109,15 +110,15 @@ function handleLogin(email, password) {
   // }
 }
 
-function handleSignup(email, usernameLogin, password, cpassword) {
-  if (email === '' || usernameLogin === '') {
+function handleSignup(emailLogin, usernameLogin, password, cpassword) {
+  if (emailLogin === '' || usernameLogin === '') {
     alert('Invalid information')
   }
   else if (password !== cpassword) {
     alert('Passwords not matching!')
   }
   else {
-    createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, emailLogin, password)
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
@@ -125,8 +126,13 @@ function handleSignup(email, usernameLogin, password, cpassword) {
       setIsLoggedIn(true)
       
       // TODO: store info in firestore
+      setDoc(doc(db, "users", emailLogin), {
+        username: usernameLogin,
+        email: emailLogin
+      });
 
       setMyUsername(usernameLogin)
+      setIsLoggedIn(true)
 
     })
     .catch((error) => {
