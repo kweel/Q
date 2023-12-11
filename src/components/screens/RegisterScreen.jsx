@@ -7,7 +7,8 @@ function RegisterScreen(props) {
     const [cpassword,setCPassword]=useState('')       
     return <View style={styles.container}>
         <Text style={{ fontSize: 36 }}>Q</Text>
-        <Text style={{ fontSize: 30 }}>Thinking deeply.</Text>
+        <Text style={{ fontSize: 20 }}>Thinking deeply.</Text>
+        <Text style={{ fontSize: 30 }}></Text>
         <Text style={{ fontSize: 25 }}>Email</Text>
         <TextInput style = {{
                 height: 40,
