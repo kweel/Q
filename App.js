@@ -1,7 +1,7 @@
 // import { StatusBar } from 'expo-status-bar';
 import { app, db } from './firebaseConfig';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { collection, addDoc , setDoc, doc} from "firebase/firestore"; 
+import { collection, setDoc, doc} from "firebase/firestore"; 
 
 import { StyleSheet, Text, View, StatusBar, Button, Alert } from 'react-native';
 import * as React from 'react';
@@ -93,6 +93,7 @@ function handleLogin(email, password) {
 
   // TODO: update info for user
 
+
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -125,7 +126,7 @@ function handleSignup(emailLogin, usernameLogin, password, cpassword) {
       // ...
       setIsLoggedIn(true)
       
-      // TODO: store info in firestore
+      // store info in firestore
       setDoc(doc(db, "users", emailLogin), {
         username: usernameLogin,
         email: emailLogin
