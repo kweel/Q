@@ -12,7 +12,8 @@ import PostedDataContext from '../contexts/PostedDataContext';
 import QuestionDataContext from '../contexts/QuestionDataContext';
 import PostModal from '../helper/PostModal';
 import FriendsDataContext from '../contexts/FriendsDataContext';
-export default function Feed ({ props }) {
+import { useNavigation } from '@react-navigation/native';
+export default function Feed (props) {
   const [friends,setFriends] = useContext(FriendsDataContext)
   const [myUsername,setMyUsername] = useContext(MyUsernameDataContext)
   const [posted,setPosted] = useContext(PostedDataContext)
@@ -62,7 +63,7 @@ export default function Feed ({ props }) {
         <Text style={{fontSize: 28, fontWeight: 600, color:'white'}}>Today's Q</Text>
         <Text style={{fontSize: 20, fontWeight: 200, color:'white'}}>{question}</Text>
         <Button title="Post" onPress={(() => setModalShown(true))}/>
-        <PostModal popSet={[modalShown,setModalShown]} question={question} handlePost={(title, messages) => {props.handlePost(title, message)}}/>
+        <PostModal popSet={[modalShown,setModalShown]} question={question} handlePost={(title, message) => props.handlePost(title, message)}/>
       </View>
       : void(0)}
       <ScrollData data={friends} Element={MessageCard} name="messages"/>

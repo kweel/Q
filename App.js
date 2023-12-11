@@ -17,7 +17,7 @@ import GetProfileFunctionContext from './src/components/contexts/GetProfileFunct
 import MyUsernameDataContext from './src/components/contexts/MyUsernameDataContext';
 import Profile from './src/components/screens/Profile';
 import RegisterScreen from './src/components/screens/RegisterScreen';
-import PostModal from './src/components/helper/PosttModal';
+import PostModal from './src/components/helper/PostModal';
 import LoginScreen from './src/components/screens/LoginScreen';
 import PostedDataContext from './src/components/contexts/PostedDataContext';
 import QuestionDataContext from './src/components/contexts/QuestionDataContext';
@@ -161,13 +161,14 @@ async function handleSignup(emailLogin, usernameLogin, password, cpassword) {
 }
 
 // TODO: connect this to post button
-function handlePostHelper(title, message) {
-  const docToUpdate = doc(db, "users", myUsername);
+function handlePost(myTitle, message) {
+  const docToUpdate = doc(db, "users", myEmail);
   updateDoc(docToUpdate, {
-    todayQuote : {title : title, body : message}
+    todayQuote : {title : myTitle, body : message}
   })
     .then(() => {
       console.log("Data updated");
+      setPosted(true)
     })
     .catch((err) => {
       console.log(err.message);
@@ -195,12 +196,12 @@ if (isLoggedIn) {
                         headerTintColor: 'white',
                       }}>
                       <Stack.Screen 
-                        name = "Feed" 
-                        component = {Feed} 
+                        name = "Feed"  
                         options={{
                           title: 'Q',
-                        }}
-                      />
+                        }}>
+                        {props => <Feed {...props} handlePost = {handlePost} />}
+                      </Stack.Screen>
                       
                       <Stack.Screen 
                         name = "Friends" 
