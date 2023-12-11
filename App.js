@@ -161,7 +161,7 @@ async function handleSignup(emailLogin, usernameLogin, password, cpassword) {
 }
 
 // TODO: connect this to post button
-function handlePost(title, message) {
+function handlePostHelper(title, message) {
   const docToUpdate = doc(db, "users", myUsername);
   updateDoc(docToUpdate, {
     todayQuote : {title : title, body : message}
