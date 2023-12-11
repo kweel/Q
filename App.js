@@ -96,11 +96,11 @@ function handleLogin(email, password) {
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    Alert.alert(error.message)
+    alert(error.message)
   });
 
   // if (profiles[usernameLogin] !== undefined && profiles[usernameLogin].password === passwordLogin) {
-  //   Alert.alert('Login successful!')
+  //   alert('Login successful!')
   //   setIsLoggedIn(true)
   //   setMyUsername(usernameLogin)
   // }
@@ -110,26 +110,28 @@ function handleLogin(email, password) {
 }
 
 function handleSignup(email, usernameLogin, password, cpassword) {
-  if (email !== '' || usernameLogin !== '') {
-    Alert.alert('Invalid information')
+  if (email === '' || usernameLogin === '') {
+    alert('Invalid information')
   }
   else if (password !== cpassword) {
-    Alert.alert('Passwords not matching!')
+    alert('Passwords not matching!')
   }
   else {
+    alert('hi3')
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
       // ...
       setIsLoggedIn(true)
+      
       // TODO: store info in firestore
 
       setMyUsername(usernameLogin)
 
     })
     .catch((error) => {
-      Alert.alert(error.message)
+      alert(error.message)
     });
   }
 

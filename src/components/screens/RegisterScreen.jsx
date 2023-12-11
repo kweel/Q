@@ -40,8 +40,8 @@ function RegisterScreen(props) {
                 borderWidth: 1,
                 padding: 10,
             }} 
-            secureTextEntry={() => true} onChangeText={setCPassword} value = {cpassword}/>
-        <Button color="crimson" title="Signup" onPress={() => props.handleSignup(username, password, cpassword)} />
+            secureTextEntry={true} onChangeText={setCPassword} value = {cpassword}/>
+        <Button color="crimson" title="Signup" onPress={() => props.handleSignup(email, username, password, cpassword)} />
         <Pressable onPress={() => props.setIsRegistering(false)}><Text color="grey" style={{ fontSize: 18 }}>Already have an account? Log in!</Text></Pressable>
     </View>;
 }
