@@ -1,7 +1,7 @@
 // import { StatusBar } from 'expo-status-bar';
 import { app, db } from './firebaseConfig';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { collection, getDoc, setDoc, doc} from "firebase/firestore"; 
+import { collection, getDoc, setDoc, doc, getDocs } from "firebase/firestore"; 
 
 import { StyleSheet, Text, View, StatusBar, Button, Alert } from 'react-native';
 import * as React from 'react';
@@ -20,6 +20,8 @@ import RegisterScreen from './src/components/screens/RegisterScreen';
 import LoginScreen from './src/components/screens/LoginScreen';
 import PostedDataContext from './src/components/contexts/PostedDataContext';
 import QuestionDataContext from './src/components/contexts/QuestionDataContext';
+import { isNewBackTitleImplementation } from 'react-native-screens';
+import { issuedAtTime } from '@firebase/util';
 
 export default function App() {
   let auth = getAuth();
@@ -31,7 +33,7 @@ export default function App() {
   const [requests,setRequests]=useState([])
   const [messages,setMessages]=useState([])
   const [profiles,setProfiles]=useState([])
-  const [myUsername,setMyUsername]=useState("Jan")
+  const [myUsername,setMyUsername]=useState([])
   const [posted,setPosted]=useState(false)
   const [question,setQuestion]=useState('')
   //a more permanent solution for styles is in the docs:
@@ -83,32 +85,27 @@ const getProfile = (username,attribute) => {
     return profiles[username]
   }
 }
-async function handleLogin(email, password) {
-  signInWithEmailAndPassword(auth, email, password)
+
+async function handleLogin(emailLogin, password) {
+  signInWithEmailAndPassword(auth, emailLogin, password)
   .then(async (userCredential) => {
     // Signed in 
     const user = userCredential.user;
     // ...
     setIsLoggedIn(true)
 
-  // TODO: update info for user
-  const docRef = doc(db, "users", email.trim());
-  const docSnap = await getDoc(docRef);
+    // TODO: update info for user
+    const docRef = doc(db, "users", emailLogin);
+    const docSnap = await getDoc(docRef);
 
-  if (docSnap.exists()) {
-    alert("Document data:", docSnap.data());
-  } else {
-    // docSnap.data() will be undefined in this case
-    alert("No such document!");
-  }
+    if (docSnap.exists()) {
+      const data = docSnap.data()
+      setMyUsername(data.username)
 
-  // if (docSnap.exists()) {
-  //   alert("Document data:", docSnap.data());
-  // } else {
-  //   // docSnap.data() will be undefined in this case
-  //   alert("Missing data! You need to make a new account!");
-  // }
-
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
 
   })
   .catch((error) => {
@@ -143,7 +140,7 @@ async function handleSignup(emailLogin, usernameLogin, password, cpassword) {
       setIsLoggedIn(true)
       
       // store info in firestore
-      await setDoc(doc(db, "users", emailLogin.trim()), {
+      await setDoc(doc(db, "users", emailLogin), {
         username: usernameLogin,
         email: emailLogin
       });
