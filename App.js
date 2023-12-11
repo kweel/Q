@@ -1,7 +1,7 @@
 // import { StatusBar } from 'expo-status-bar';
 import { app, db } from './firebaseConfig';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { collection, setDoc, doc} from "firebase/firestore"; 
+import { collection, getDoc, setDoc, doc} from "firebase/firestore"; 
 
 import { StyleSheet, Text, View, StatusBar, Button, Alert } from 'react-native';
 import * as React from 'react';
@@ -92,6 +92,22 @@ function handleLogin(email, password) {
     setIsLoggedIn(true)
 
   // TODO: update info for user
+  const docRef = doc(db, "users", email);
+
+  getDoc(docRef).then(docSnap => {
+    docSnap.doc.map()
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+    } else {
+      console.log("No such document!");
+    }
+  })
+  // if (docSnap.exists()) {
+  //   alert("Document data:", docSnap.data());
+  // } else {
+  //   // docSnap.data() will be undefined in this case
+  //   alert("Missing data! You need to make a new account!");
+  // }
 
 
   })
