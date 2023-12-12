@@ -81,8 +81,8 @@ export default function App() {
 
 // },[])
 
-useEffect(async () => {
-  if (isLoggedIn) {
+useEffect( () => {
+  const fetchData = async () => {if (isLoggedIn) {
     const q = query(collection(db, "users"));
 
     const querySnapshot = await getDocs(q);
@@ -96,7 +96,8 @@ useEffect(async () => {
     });
     console.log(dict)
     setProfiles(dict)
-  }
+  }}
+  fetchData()
 }, [isLoggedIn]);
 
 useEffect(() => {
