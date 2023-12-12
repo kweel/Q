@@ -207,7 +207,16 @@ async function handleSignup(emailLogin, usernameLogin, password, cpassword) {
   }
 }
 function handleUpdateBio(newBio) {
-  console.log(newBio)
+  const docToUpdate = doc(db, "users", myEmail);
+  updateDoc(docToUpdate, {
+    bio : newBio
+  })
+    .then(() => {
+      console.log("Data updated");
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 }
 // TODO: connect this to post button
 function handlePost(myTitle, message) {
