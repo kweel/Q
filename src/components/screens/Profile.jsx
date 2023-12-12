@@ -10,7 +10,11 @@ export default function Profile(props) {
     //isntead of calling context from in here, call context during getProfile and spawn profile while passing prop information in
     //actually I think I should just call context from here
     const getProfile = useContext(GetProfileFunctionContext)
+    console.log(props.route.params.name)
+    console.log(props.name)
+    console.log(props)
     const profileInfo = getProfile(props.route.params.name)
+    console.log(profileInfo)
     return (
         profileInfo !== undefined ?
             <SafeAreaView style={{ flex: 1, backgroundColor: "#000000" }}>

@@ -20,8 +20,12 @@ export default function Feed (props) {
   const [question,setQuestion] = useContext(QuestionDataContext)
   const [modalShown,setModalShown]=useState(false)
   const navigation = useNavigation()
-  useEffect(() => console.log(myUsername),[myUsername])
+  // let newUsername = ''
+  useEffect(() => {
+     console.log(myUsername)
+   })
   React.useLayoutEffect(() => {
+    console.log(myUsername)
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={() => {
@@ -40,7 +44,7 @@ export default function Feed (props) {
         </TouchableOpacity>
       ),
       headerRight: () => (
-        <TouchableOpacity onPress={() => navigation.push('Me',{name:myUsername})}>
+        <TouchableOpacity onPress={() => navigation.push('Me', {name: myUsername})}>
           <Image
             source={require('../../../assets/icons/musk.jpg')} 
             style={{ 
@@ -54,7 +58,7 @@ export default function Feed (props) {
         </TouchableOpacity>
       ),
     });
-  }, [navigation])
+  }, [myUsername, navigation])
 
   // useEffect(() =>
   //   console.log(friends)
