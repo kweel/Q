@@ -23,6 +23,7 @@ import PostedDataContext from './src/components/contexts/PostedDataContext';
 import QuestionDataContext from './src/components/contexts/QuestionDataContext';
 import { isNewBackTitleImplementation } from 'react-native-screens';
 import { issuedAtTime } from '@firebase/util';
+import BioDataContext from './src/components/contexts/BioDataContext';
 
 export default function App() {
   let auth = getAuth();
@@ -205,7 +206,9 @@ async function handleSignup(emailLogin, usernameLogin, password, cpassword) {
     });
   }
 }
-
+function handleUpdateBio(newBio) {
+  console.log(newBio)
+}
 // TODO: connect this to post button
 function handlePost(myTitle, message) {
   const docToUpdate = doc(db, "users", myEmail);
@@ -241,30 +244,31 @@ if (isLoggedIn) {
               <MyUsernameDataContext.Provider value={[myUsername,setMyUsername]}>
                 <PostedDataContext.Provider value={[postedToday,setPostedToday]}>
                   <QuestionDataContext.Provider value={[question,setQuestion]}>
-                    <Stack.Navigator 
-                      initialRouteName="route"
-                      screenOptions={{
-                        headerStyle: {
-                          backgroundColor: '#000000'
-                        },
-                        headerTintColor: 'white',
-                      }}>
-                      <Stack.Screen 
-                        name = "Feed"  
-                        options={{
-                          title: 'Q',
+                    <BioDataContext.Provider value={[myBio,setMyBio]}>
+                      <Stack.Navigator 
+                        initialRouteName="route"
+                        screenOptions={{
+                          headerStyle: {
+                            backgroundColor: '#000000'
+                          },
+                          headerTintColor: 'white',
                         }}>
-                        {props => <Feed {...props} handlePost = {handlePost} allUsers = {Object.keys(profiles)} handleLogout={handleLogout}/>}
-                      </Stack.Screen>
-                      <Stack.Screen 
-                        name = "Profile" 
-                        component = {Profile} 
-                      />
-                      <Stack.Screen 
-                        name = "Me" 
-                        component = {Profile}
-                      />
-                    </Stack.Navigator>
+                        <Stack.Screen 
+                          name = "Feed"  
+                          options={{
+                            title: 'Q',
+                          }}>
+                          {props => <Feed {...props} handlePost = {handlePost} allUsers = {Object.keys(profiles)} handleLogout={handleLogout}/>}
+                        </Stack.Screen>
+                        
+                        <Stack.Screen name = "Profile">
+                            {props=><Profile {...props} handleUpdateBio={handleUpdateBio}/>}
+                        </Stack.Screen>
+                        <Stack.Screen name = "Me">
+                            {props=><Profile {...props} handleUpdateBio={handleUpdateBio}/>}
+                          </Stack.Screen>
+                      </Stack.Navigator>
+                    </BioDataContext.Provider>
                   </QuestionDataContext.Provider>
                 </PostedDataContext.Provider>
               </MyUsernameDataContext.Provider>
