@@ -56,9 +56,9 @@ export default function Feed (props) {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#000000"}}>
       {!posted ? <View style={styles.blurOverlay}>
-        <Text style={{fontSize: 28, fontWeight: 600, color:'white'}}>Today's Q</Text>
-        <Text style={{fontSize: 20, fontWeight: 200, color:'white'}}>{question}</Text>
-        <Button title="Post" onPress={(() => setModalShown(true))}/>
+        <Text style={{fontSize: 20, fontWeight: 600, color:'white', paddingLeft: 14, paddingRight: 14}}>Today's Q</Text>
+        <Text style={{fontSize: 20, fontWeight: 200, color:'white', paddingLeft: 14, paddingRight: 14}}>{question}</Text>
+        <Button style={{marginBottom:10}} title="Post" onPress={(() => setModalShown(true))}/>
         <PostModal popSet={[modalShown,setModalShown]} question={question} handlePost={(title, message) => props.handlePost(title, message)}/>
       </View>
       : void(0)}
