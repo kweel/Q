@@ -214,6 +214,7 @@ function handleUpdateBio(newBio) {
     .then(() => {
       setMyBio(newBio)
       console.log("Data updated");
+      setMyBio(newBio)
     })
     .catch((err) => {
       console.log(err.message);
@@ -241,6 +242,9 @@ function handleLogout() {
   setPostedToday(false)
   setProfiles([])
   setIsRegistering(false)
+  setMyEmail([])
+  setMyUsername([])
+  setMyBio([])
 }
 if (isLoggedIn) {
   return (
