@@ -35,20 +35,20 @@ export default function Profile(props) {
                         alignItems: "center",
                     }}
                 /> */}
-                <Text style={{ fontSize: 28, fontWeight: 600, color: 'white' }}>User: {props.route.params.name}</Text>
+                {/* <Text style={{ fontSize: 25, fontWeight: 600, color: 'white', marginLeft: 8, marginRight: 8 }}>User: {props.route.params.name}</Text> */}
                 {/* <Text style={{ fontSize: 20, color: 'white' }}>Friends for 10 days</Text> */}
                 {/* <Text style={{ fontSize: 12, color: 'white' }}>Today's quote:</Text> */}
                 <MessageCard name={props.route.params.name} />
                 {myUsername === props.route.params.name ? 
                     <View>
-                        <Text style={[styles.textHeader, { fontSize: 14 }]}>Bio</Text>
+                        <Text style={[styles.textHeader, { marginTop: 10, fontSize: 16, marginLeft: 8, marginRight: 8 }]}>Bio</Text>
                         <TextInput 
-                            style={[styles.textInput, {color: '#fff', marginBottom: 20}]}
+                            style={[styles.textInput, {color: '#fff', marginTop:5, marginBottom: 10, marginLeft: 8, height: 38, borderColor: '#555555'}]}
                             onChangeText={setTempBio} 
                             value = {tempBio}
                             placeholderTextColor="#fff"/>
                         <Pressable 
-                            style={[styles.button, {height: 35, width: 75,}]}
+                            style={[styles.button, {height: 35, width: 75, marginTop: 5, marginLeft: 8}]}
                             onPress={() => {
                                 props.handleUpdateBio(tempBio)
                             }}>
@@ -57,8 +57,8 @@ export default function Profile(props) {
                     </View>
                 :
                 <View>
-                    <Text style={[styles.textHeader, { fontSize: 14 }]}>Bio:</Text>
-                    <Text style={[styles.textRegular, { fontSize: 14 }]}>{profileInfo['bio']}</Text>
+                    <Text style={[styles.textHeader, { marginTop: 10, fontSize: 16, marginLeft: 8, marginRight: 8, fontWeight: 600 }]}>{props.route.params.name}'s Bio:</Text>
+                    <Text style={[styles.textRegular, { marginTop: 10, fontSize: 16, marginLeft: 8, marginRight: 8 }]}>{profileInfo['bio']}</Text>
                 </View>
                 }
             </SafeAreaView>
@@ -76,11 +76,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     textHeader: {
-        fontFamily: "Lora-SemiBold",
+        // fontFamily: "Lora-SemiBold",
         color: '#fff'
     },
     textRegular: {
-        fontFamily: 'Lora-Regular',
+        // fontFamily: 'Lora-Regular',
         color: '#fff'
     },
     textInput: {
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 1,
         padding: 10,
-        fontFamily: 'Lora-Regular'
+        // fontFamily: 'Lora-Regular'
     },
     button: {
         backgroundColor: "#fff",
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#1D1B20', 
         fontSize: 14, 
-        fontFamily: 'Lora-SemiBold', 
+        // fontFamily: 'Lora-SemiBold', 
     },
     inputContainer: {
         alignSelf: 'stretch',
