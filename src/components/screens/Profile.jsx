@@ -18,8 +18,10 @@ export default function Profile(props) {
     console.log(props)
     const profileInfo = getProfile(props.route.params.name)
     const [tempBio,setTempBio] = useState(profileInfo['bio'])
+    const [realBio,setRealBio] = useContext(BioDataContext)
     console.log(profileInfo)
     useEffect(() => console.log(myUsername),[myUsername])
+    useEffect(()=>setTempBio(realBio),[realBio])
     return (
         profileInfo !== undefined ?
             <SafeAreaView style={{ flex: 1, backgroundColor: "#000000" }}>
