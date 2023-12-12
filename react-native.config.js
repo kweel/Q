@@ -3,5 +3,7 @@ module. Exports = {
     ios: {},
     android: {},
    },
-    assets: ['./src/assets/node_modules/@react-native-community/blur/'], // path of your assert file
-   };
+    assets: ['./src/assets/node_modules/@react-native-community/blur/', './assets/fonts/'], 
+    
+    // path of your assert file
+};
