@@ -21,9 +21,6 @@ export default function Feed (props) {
   const [modalShown,setModalShown]=useState(false)
   const navigation = useNavigation()
   // let newUsername = ''
-  useEffect(() => {
-     console.log(myUsername)
-   })
   React.useLayoutEffect(() => {
     console.log(myUsername)
     navigation.setOptions({

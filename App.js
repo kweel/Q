@@ -35,9 +35,11 @@ export default function App() {
   const [messages,setMessages]=useState([])
   const [profiles,setProfiles]=useState([])
   const [myUsername,setMyUsername]=useState([])
+  const [myBio,setMyBio]=useState([])
   const [myEmail,setMyEmail]=useState([])
-  const [posted,setPosted]=useState(false)
+  // const [posted,setPosted]=useState(false)
   const [question,setQuestion]=useState('')
+  const [postedToday,setPostedToday]=useState(false)
   //a more permanent solution for styles is in the docs:
   //https://reactnavigation.org/docs/
   const styles = StyleSheet.create({
@@ -80,7 +82,7 @@ export default function App() {
 
 useEffect( () => {
   const fetchData = async () => {
-    if (posted) {
+    if (postedToday) {
       const q = query(collection(db, "users"));
 
       const querySnapshot = await getDocs(q);
@@ -89,7 +91,7 @@ useEffect( () => {
         // doc.data() is never undefined for query doc snapshots
         const data = doc.data()
         if (data.todayQuote.title !== '' && data.todayQuote.body !== '') {
-          dict[data.username] = {'todayQuote':data.todayQuote, 'email':data.email}
+          dict[data.username] = {'todayQuote':data.todayQuote, 'email':data.email, 'postedToday':data.postedToday, 'bio':data.bio}
         }
       });
       console.log(dict)
@@ -98,7 +100,7 @@ useEffect( () => {
 }
   console.log('fetched data')
   fetchData()
-}, [posted]);
+}, [postedToday]);
 
 useEffect(() => {
   setQuestion("What color is today's turkey?")
@@ -144,6 +146,8 @@ async function handleLogin(emailLogin, password) {
       const data = docSnap.data()
       setMyUsername(data.username)
       setMyEmail(data.email)
+      setPostedToday(data.postedToday)
+      setMyBio(data.bio)
 
     } else {
       // docSnap.data() will be undefined in this case
@@ -185,12 +189,15 @@ async function handleSignup(emailLogin, usernameLogin, password, cpassword) {
       await setDoc(doc(db, "users", emailLogin), {
         username: usernameLogin,
         email: emailLogin,
-        todayQuote : {title : "", body : ""}
+        todayQuote : {title : "", body : ""},
+        postedToday : false,
+        bio : ""
       });
 
       setMyUsername(usernameLogin)
       setMyEmail(emailLogin)
       setIsLoggedIn(true)
+      setPostedToday(false)
 
     })
     .catch((error) => {
@@ -203,11 +210,13 @@ async function handleSignup(emailLogin, usernameLogin, password, cpassword) {
 function handlePost(myTitle, message) {
   const docToUpdate = doc(db, "users", myEmail);
   updateDoc(docToUpdate, {
-    todayQuote : {title : myTitle, body : message}
+    todayQuote : {title : myTitle, body : message},
+    postedToday : true
   })
     .then(() => {
       console.log("Data updated");
-      setPosted(true)
+      // setPosted(true)
+      setPostedToday(true)
     })
     .catch((err) => {
       console.log(err.message);
@@ -215,8 +224,10 @@ function handlePost(myTitle, message) {
 }
 function handleLogout() {
   setIsLoggedIn(false)
-  setPosted(false)
+  // setPosted(false)
+  setPostedToday(false)
   setProfiles([])
+  setIsRegistering(false)
 }
 if (isLoggedIn) {
   return (
@@ -228,7 +239,7 @@ if (isLoggedIn) {
           <MessagesDataContext.Provider value={[messages,setMessages]}>
             <GetProfileFunctionContext.Provider value={getProfile}>
               <MyUsernameDataContext.Provider value={[myUsername,setMyUsername]}>
-                <PostedDataContext.Provider value={[posted,setPosted]}>
+                <PostedDataContext.Provider value={[postedToday,setPostedToday]}>
                   <QuestionDataContext.Provider value={[question,setQuestion]}>
                     <Stack.Navigator 
                       initialRouteName="route"
