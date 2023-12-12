@@ -6,18 +6,36 @@ function LoginScreen(props) {
     const [password,setPassword]=useState('')
     return <View style={styles.container}>
         <Text style={[styles.textHeader, { fontSize: 96, marginBottom: 10}]}>Q</Text>
-        <Text style={[styles.textHeader, { fontSize: 20, color: '#AAA', marginBottom: 10 }]}>Thinking deeply.</Text>
+        <Text style={[styles.textHeader, { fontSize: 20, color: '#AAA', marginBottom: 50 }]}>Thinking deeply.</Text>
+
         <Text style={[styles.textHeader, { fontSize: 14 }]}>Email</Text>
-        <TextInput style={styles.textInput}
-  onChangeText={setEmail} value = {email} placeholder="Enter email" keyboardType="email-address" placeholderTextColor="#fff"/>
+        <TextInput 
+            style={[styles.textInput, {color: '#fff', marginBottom: 20}]}
+            onChangeText={setEmail} 
+            value = {email} placeholder="Enter email" 
+            keyboardType="email-address" 
+            placeholderTextColor="#fff"/>
+
         <Text style={[styles.textRegular, { fontSize: 14 }]}>Password</Text>
-        <TextInput style={styles.textInput}
-        secureTextEntry={true} onChangeText={setPassword} value = {password} placeholder= "Enter password" placeholderTextColor="#fff"/>
-        <Button color="crimson" title="Login" onPress={() => {
+        <TextInput 
+            style={[styles.textInput, {color: '#fff', marginBottom: 20}]}
+            secureTextEntry={true} 
+            onChangeText={setPassword} 
+            value = {password} 
+            placeholder= "Enter password" 
+            placeholderTextColor="#fff"/>
+
+        <Pressable 
+        style={[styles.button, {height: 35, width: 75,}]}
+        onPress={() => {
             props.handleLogin(email, password)
-        }} />
-        <Text style={{ fontSize: 10 }}>Working login: Email: asdf@gmail.com Password: asdfgh</Text>
-        <Pressable onPress={() => props.setIsRegistering(true)}><Text color="grey" style={{ fontSize: 18 }}>New here? Sign up!</Text></Pressable>
+        }}>
+        <Text style={styles.buttonText}>Login</Text>
+        </Pressable>
+
+        <Text style={[styles.textRegular, { fontSize: 10, marginTop: 10 }]}>Working login: Email: asdf@gmail.com Password: asdfgh</Text>
+        <Pressable style={[styles.button, {height: 35, width: 150,}]} onPress={() => props.setIsRegistering(true)}>
+            <Text style={styles.buttonText}>New here? Sign up!</Text></Pressable>
     </View>;
 }
 
@@ -45,7 +63,26 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 1,
         padding: 10,
-    }
+        fontFamily: 'Lora-Regular'
+    },
+    button: {
+        backgroundColor: "#fff",
+        borderRadius: 8,
+        paddingVertical: 10,
+        paddingHorizontal: 5,
+        margin: 12,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    buttonText: {
+        color: '#1D1B20', 
+        fontSize: 14, 
+        fontFamily: 'Lora-SemiBold', 
+    },
+    inputContainer: {
+        alignSelf: 'stretch',
+        marginLeft: 12,
+    },
 });
 
 export default LoginScreen;
