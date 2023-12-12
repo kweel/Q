@@ -5,11 +5,11 @@ function RegisterScreen(props) {
     const [username,setUsername]=useState('')
     const [password,setPassword]=useState('')
     const [cpassword,setCPassword]=useState('')       
-    return <View style={styles.container}>
+    return <SafeAreaView style={[styles.container, {backgroundColor: '#000'}]}>
         <Text style={[styles.textHeader, { fontSize: 30, marginBottom: 0}]}>Q</Text>
         <Text style={[styles.textHeader, { fontSize: 20, color: '#AAA', marginBottom: 20 }]}>Thinking deeply.</Text>
 
-        <Text style={[styles.textHeader, { fontSize: 14 }]}>Email</Text>
+        {/* <Text style={[styles.textHeader, { fontSize: 14 }]}>Email</Text> */}
         <TextInput 
             style={[styles.textInput, {color: '#fff', marginTop:5, marginBottom: 15, height: 38, borderColor: '#555555'}]}
             onChangeText={setEmail} 
@@ -19,7 +19,7 @@ function RegisterScreen(props) {
             placeholderTextColor="#fff"/>
 
 
-        <Text style={[styles.textHeader, { fontSize: 14 }]}>Username</Text>
+        {/* <Text style={[styles.textHeader, { fontSize: 14 }]}>Username</Text> */}
         <TextInput 
             style={[styles.textInput, {color: '#fff', marginTop:5, marginBottom: 15, height: 38, borderColor: '#555555'}]}
             onChangeText={setUsername} 
@@ -28,7 +28,7 @@ function RegisterScreen(props) {
             value = {username}
         />
 
-        <Text style={[styles.textHeader, { fontSize: 14 }]}>Password</Text>
+        {/* <Text style={[styles.textHeader, { fontSize: 14 }]}>Password</Text> */}
         <TextInput 
             style={[styles.textInput, {color: '#fff', marginTop:5, marginBottom: 15, height: 38, borderColor: '#555555'}]}
             secureTextEntry={true} 
@@ -37,7 +37,7 @@ function RegisterScreen(props) {
             placeholderTextColor="#fff"
             value = {password}/>
 
-        <Text style={[styles.textHeader, { fontSize: 14 }]}>Confirm Password</Text>
+        {/* <Text style={[styles.textHeader, { fontSize: 14 }]}>Confirm Password</Text> */}
         <TextInput 
             style={[styles.textInput, {color: '#fff', marginTop:5, marginBottom: 15, height: 38, borderColor: '#555555'}]}
             secureTextEntry={true} 
@@ -55,7 +55,7 @@ function RegisterScreen(props) {
             onPress={() => props.setIsRegistering(false)}>
                 <Text style={[styles.buttonText, {color: '#fff'}]}>Already have an account? Log in!</Text>
         </Pressable>
-    </View>;
+    </SafeAreaView>;
 }
 
 const styles = StyleSheet.create({

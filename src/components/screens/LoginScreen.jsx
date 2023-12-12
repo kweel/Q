@@ -8,7 +8,7 @@ function LoginScreen(props) {
         <Text style={[styles.textHeader, { fontSize: 30, marginBottom: 0}]}>Q</Text>
         <Text style={[styles.textHeader, { fontSize: 20, color: '#AAA', marginBottom: 20 }]}>Thinking deeply.</Text>
 
-        <Text style={[styles.textHeader, { fontSize: 14 }]}>Email</Text>
+        {/* <Text style={[styles.textHeader, { fontSize: 14 }]}>Email</Text> */}
         <TextInput 
             style={[styles.textInput, {color: '#fff', marginTop:5, marginBottom: 15, height: 38, borderColor: '#555555'}]}
             onChangeText={setEmail} 
@@ -16,9 +16,9 @@ function LoginScreen(props) {
             placeholder="Enter email" 
             keyboardType="email-address" 
             placeholderTextColor="#fff"/>
-        <Text style={[styles.textRegular, { fontSize: 14 }]}>Password</Text>
+        {/* <Text style={[styles.textRegular, { fontSize: 14 }]}>Password</Text> */}
         <TextInput 
-            style={[styles.textInput, {color: '#fff', marginTop:5, marginBottom: 20, height: 38, borderColor: '#555555'}]}
+            style={[styles.textInput, {color: '#fff', marginTop:0, marginBottom: 20, height: 38, borderColor: '#555555'}]}
             secureTextEntry={true} 
             onChangeText={setPassword} 
             value = {password} 
