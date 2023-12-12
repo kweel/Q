@@ -102,6 +102,7 @@ useEffect(async () => {
 useEffect(() => {
   setQuestion("What color is today's turkey?")
 },[])
+
 const getProfile = (username,attribute) => {
   //what if instead of getting information only, put navigate to profile screen?
   //maybe I can do that in another function
@@ -171,9 +172,7 @@ async function handleSignup(emailLogin, usernameLogin, password, cpassword) {
       await setDoc(doc(db, "users", emailLogin), {
         username: usernameLogin,
         email: emailLogin,
-        friendsList : [],
-        todayQuote : {title : "", body : ""},
-        image: 'musk.jpg'
+        todayQuote : {title : "", body : ""}
       });
 
       setMyUsername(usernameLogin)
