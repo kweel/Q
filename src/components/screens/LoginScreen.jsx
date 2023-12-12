@@ -34,8 +34,8 @@ function LoginScreen(props) {
         </Pressable>
 
         <Text style={[styles.textRegular, { fontSize: 10, marginTop: 10 }]}>Working login: Email: asdf@gmail.com Password: asdfgh</Text>
-        <Pressable style={[styles.button, {height: 35, width: 150,}]} onPress={() => props.setIsRegistering(true)}>
-            <Text style={styles.buttonText}>New here? Sign up!</Text></Pressable>
+        <Pressable onPress={() => props.setIsRegistering(true)}>
+            <Text style={[styles.buttonText, {color: '#fff'}]}>New here? Sign up!</Text></Pressable>
     </View>;
 }
 
