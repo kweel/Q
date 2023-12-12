@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ScrollData from '../helper/ScrollData';
 import { useContext } from 'react';
-import FriendsDataContext from '../contexts/FriendsDataContext';
+import FriendsDataContext from '../contexts/UsersDataContext';
 import RequestsDataContext from '../contexts/RequestsDataContext';
 import FriendCard from '../helper/FriendCard';
 function FriendsTabs(props) {

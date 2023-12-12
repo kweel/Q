@@ -11,10 +11,10 @@ import { StyleSheet } from 'react-native';
 import PostedDataContext from '../contexts/PostedDataContext';
 import QuestionDataContext from '../contexts/QuestionDataContext';
 import PostModal from '../helper/PostModal';
-import FriendsDataContext from '../contexts/FriendsDataContext';
+import UsersDataContext from '../contexts/UsersDataContext';
 import { useNavigation } from '@react-navigation/native';
 export default function Feed (props) {
-  const [friends,setFriends] = useContext(FriendsDataContext)
+  const [users,setUsers] = useContext(UsersDataContext)
   const [myUsername,setMyUsername] = useContext(MyUsernameDataContext)
   const [posted,setPosted] = useContext(PostedDataContext)
   const [question,setQuestion] = useContext(QuestionDataContext)
@@ -40,9 +40,9 @@ export default function Feed (props) {
     });
   }, [navigation])
 
-  useEffect(() =>
-    console.log(friends)
-    ,[friends])
+  // useEffect(() =>
+  //   console.log(friends)
+  //   ,[friends])
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#000000"}}>
@@ -53,7 +53,7 @@ export default function Feed (props) {
         <PostModal popSet={[modalShown,setModalShown]} question={question} handlePost={(title, message) => props.handlePost(title, message)}/>
       </View>
       : void(0)}
-      <ScrollData data={friends} Element={MessageCard} name="messages"/>
+      <ScrollData data={props.allUsers} Element={MessageCard} name="messages"/>
     </SafeAreaView>
     
   )

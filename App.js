@@ -10,7 +10,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Feed from './src/components/screens/Feed'
 import FriendsTabs from './src/components/screens/FriendsTabs';
-import FriendsDataContext from './src/components/contexts/FriendsDataContext';
+import FriendsDataContext from './src/components/contexts/UsersDataContext';
 import RequestsDataContext from './src/components/contexts/RequestsDataContext';
 import MessagesDataContext from './src/components/contexts/MessagesDataContext';
 import GetProfileFunctionContext from './src/components/contexts/GetProfileFunctionContext';
@@ -82,7 +82,7 @@ export default function App() {
 // },[])
 
 useEffect( () => {
-  const fetchData = async () => {if (isLoggedIn) {
+  const fetchData = async () => {if (posted) {
     const q = query(collection(db, "users"));
 
     const querySnapshot = await getDocs(q);
@@ -98,7 +98,7 @@ useEffect( () => {
     setProfiles(dict)
   }}
   fetchData()
-}, [isLoggedIn]);
+}, [posted]);
 
 useEffect(() => {
   setQuestion("What color is today's turkey?")
@@ -227,7 +227,7 @@ if (isLoggedIn) {
                         options={{
                           title: 'Q',
                         }}>
-                        {props => <Feed {...props} handlePost = {handlePost} />}
+                        {props => <Feed {...props} handlePost = {handlePost} allUsers = {Object.keys(profiles)} />}
                       </Stack.Screen>
                       <Stack.Screen 
                         name = "Profile" 
