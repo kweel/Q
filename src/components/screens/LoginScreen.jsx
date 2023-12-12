@@ -5,9 +5,9 @@ function LoginScreen(props) {
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
     return <View style={styles.container}>
-        <Text style={{ fontSize: 36 }}>Q</Text>
-        <Text style={{ fontSize: 30 }}>Thinking deeply.</Text>
-        <Text style={{ fontSize: 25 }}>Email</Text>
+        <Text style={[styles.textHeader, { fontSize: 36 }]}>Q</Text>
+        <Text style={[styles.textHeader, { fontSize: 30, color: '#AAA' }]}>Thinking deeply.</Text>
+        <Text style={[styles.textHeader, { fontSize: 25 }]}>Email</Text>
         <TextInput style = {{
             height: 40,
             margin: 12,
@@ -37,6 +37,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    textHeader: {
+        fontFamily: "Lora-Medium",
+        color: '#fff'
+    },
+    textRegular: {
+        fontFamily: 'Lora-Regular',
+        color: '#fff'
     }
 });
 
