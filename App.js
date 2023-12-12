@@ -212,6 +212,7 @@ function handleUpdateBio(newBio) {
     bio : newBio
   })
     .then(() => {
+      setMyBio(newBio)
       console.log("Data updated");
     })
     .catch((err) => {
