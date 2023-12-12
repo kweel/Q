@@ -5,20 +5,20 @@ function LoginScreen(props) {
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
     return <View style={styles.container}>
-        <Text style={[styles.textHeader, { fontSize: 96, marginBottom: 10}]}>Q</Text>
-        <Text style={[styles.textHeader, { fontSize: 20, color: '#AAA', marginBottom: 50 }]}>Thinking deeply.</Text>
+        <Text style={[styles.textHeader, { fontSize: 30, marginBottom: 0}]}>Q</Text>
+        <Text style={[styles.textHeader, { fontSize: 20, color: '#AAA', marginBottom: 20 }]}>Thinking deeply.</Text>
 
         <Text style={[styles.textHeader, { fontSize: 14 }]}>Email</Text>
         <TextInput 
-            style={[styles.textInput, {color: '#fff', marginBottom: 20}]}
+            style={[styles.textInput, {color: '#fff', marginTop:5, marginBottom: 15, height: 38, borderColor: '#555555'}]}
             onChangeText={setEmail} 
-            value = {email} placeholder="Enter email" 
+            value={email} 
+            placeholder="Enter email" 
             keyboardType="email-address" 
             placeholderTextColor="#fff"/>
-
         <Text style={[styles.textRegular, { fontSize: 14 }]}>Password</Text>
         <TextInput 
-            style={[styles.textInput, {color: '#fff', marginBottom: 20}]}
+            style={[styles.textInput, {color: '#fff', marginTop:5, marginBottom: 20, height: 38, borderColor: '#555555'}]}
             secureTextEntry={true} 
             onChangeText={setPassword} 
             value = {password} 
@@ -33,7 +33,7 @@ function LoginScreen(props) {
         <Text style={styles.buttonText}>Login</Text>
         </Pressable>
 
-        <Text style={[styles.textRegular, { fontSize: 10, marginTop: 10 }]}>Working login: Email: asdf@gmail.com Password: asdfgh</Text>
+        {/* <Text style={[styles.textRegular, { fontSize: 10, marginTop: 10 }]}>Working login: Email: asdf@gmail.com Password: asdfgh</Text> */}
         <Pressable onPress={() => props.setIsRegistering(true)}>
             <Text style={[styles.buttonText, {color: '#fff'}]}>New here? Sign up!</Text></Pressable>
     </View>;
@@ -47,11 +47,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     textHeader: {
-        fontFamily: "Lora-SemiBold",
+        // fontFamily: "Lora-SemiBold",
         color: '#fff'
     },
     textRegular: {
-        fontFamily: 'Lora-Regular',
+        // fontFamily: 'Lora-Regular',
         color: '#fff'
     },
     textInput: {
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 1,
         padding: 10,
-        fontFamily: 'Lora-Regular'
+        // fontFamily: 'Lora-Regular'
     },
     button: {
         backgroundColor: "#fff",
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#1D1B20', 
         fontSize: 14, 
-        fontFamily: 'Lora-SemiBold', 
+        // fontFamily: 'Lora-SemiBold', 
     },
     inputContainer: {
         alignSelf: 'stretch',

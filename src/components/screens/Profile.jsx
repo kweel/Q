@@ -33,9 +33,9 @@ export default function Profile(props) {
                         alignItems: "center",
                     }}
                 /> */}
-                <Text style={{ fontSize: 28, fontWeight: 600, color: 'white' }}>Name: {props.route.params.name}</Text>
-                {/* <Text style={{ fontSize: 20, color: 'white' }}>Friends since {profileInfo.friendDate}</Text> */}
-                <Text style={{ fontSize: 12, color: 'white' }}>Today's quote:</Text>
+                <Text style={{ fontSize: 28, fontWeight: 600, color: 'white' }}>User: {props.route.params.name}</Text>
+                {/* <Text style={{ fontSize: 20, color: 'white' }}>Friends for 10 days</Text> */}
+                {/* <Text style={{ fontSize: 12, color: 'white' }}>Today's quote:</Text> */}
                 <MessageCard name={props.route.params.name} />
                 {myUsername === props.route.params.name ? 
                     <View>
