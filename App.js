@@ -242,6 +242,9 @@ function handleLogout() {
   setPostedToday(false)
   setProfiles([])
   setIsRegistering(false)
+  setMyEmail([])
+  setMyUsername([])
+  setMyBio([])
 }
 if (isLoggedIn) {
   return (
