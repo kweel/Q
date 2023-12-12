@@ -1,7 +1,7 @@
 // import { StatusBar } from 'expo-status-bar';
 import { app, db } from './firebaseConfig';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { collection, getDoc, setDoc, doc, updateDoc } from "firebase/firestore"; 
+import { collection, getDoc, setDoc, doc, updateDoc, getDocs, query, where } from "firebase/firestore"; 
 
 import { StyleSheet, Text, View, StatusBar, Button, Alert } from 'react-native';
 import * as React from 'react';
@@ -53,26 +53,52 @@ export default function App() {
   //use myUsername to fetch my friendslist etc?
   //TODO: make this dependent on profile
   
-  useEffect(() => {
-    setFriends(['John','Sarah','Ken'])
-    setRequests(['Jan','Seraphin','Kenjamin'])
-    },[])
-  useEffect(() => {
-    setProfiles({
-      //usernames MUST be unique, profile data will be fetched with username
-      //messages might also be done through profiles? I want something centralized where data is scraped from one source
-      //must be a database thing???
-      'Jan':{'friendDate':1010, 'username':'john1', 'img':'musk.jpg','todayQuote':{title:'bums', body:'ur a bum'},'friendsList':['Ken','Sarah','poster'],'password':'password1'},
-      'Ken':{'friendDate':10130, 'username':'kenbergkenson', 'img':'musk.jpg','todayQuote':{title:'Kenji', body:'Kenjutsu'},'friendsList':['Jan','Sarah','poster'],'password':'password1'},
-      'poster':{'friendDate':10104, 'username':'img_jpg', 'img':'musk.jpg','todayQuote':{title:'post', body:'best relaxing instrumental erhu music 2019'},'friendsList':['Ken','Sarah','Jan'],'password':'password1'},
-      'Sarah':{'friendDate':10810, 'username':'sarah523', 'img':'musk.jpg','todayQuote':{title:'all of you heathens', body:'blahblah my name sarah'},'friendsList':['Ken','Jan','poster'],'password':'password1'},
-      'Jan the Second':{ 'friendDate':"Never", 'username':'jan2', 'img':'musk.jpg', 'todayQuote':{title:"If a  tree falls...", body:"who picks up the pieces?"},'friendsList':['Jan','John','Ken'],'password':'password1'},
-      'John':{'friendDate':10810, 'username':'jawnjawn', 'img':'musk.jpg','todayQuote':{title:'Doe', body:'As the deer panteth for the water, so my soul longeth for Pocari Sweat'},'friendsList':['Jan','Kenjamin','Ken','Seraphin'],'password':'password1'},
-      'Kenjamin':{'friendDate':10810, 'username':'kenjikenjikoko', 'img':'musk.jpg','todayQuote':{title:'Kenjabin Denjakin', body:'Soup is good'},'friendsList':['Jan','John','Ken','Sarah'],'password':'password1'},
-      'Seraphin':{'friendDate':10810, 'username':'notseraphimnotanangel', 'img':'musk.jpg','todayQuote':{title:'my name sera', body:'uggoggogg'},'friendsList':['Sarah','Jan the Second','Kenjamin'],'password':'password1'},
-    })
+//   useEffect(() => {
+//     setFriends(['John','Sarah','Ken'])
+//     setRequests(['Jan','Seraphin','Kenjamin'])
+//     },[])
 
-},[])
+//   useEffect(() => {
+//     setProfiles(
+//     //   {
+//     //   //usernames MUST be unique, profile data will be fetched with username
+//     //   //messages might also be done through profiles? I want something centralized where data is scraped from one source
+//     //   //must be a database thing???
+//     //   'Jan':{'friendDate':1010, 'username':'john1', 'img':'musk.jpg','todayQuote':{title:'bums', body:'ur a bum'},'friendsList':['Ken','Sarah','poster'],'password':'password1'},
+//     //   'Ken':{'friendDate':10130, 'username':'kenbergkenson', 'img':'musk.jpg','todayQuote':{title:'Kenji', body:'Kenjutsu'},'friendsList':['Jan','Sarah','poster'],'password':'password1'},
+//     //   'poster':{'friendDate':10104, 'username':'img_jpg', 'img':'musk.jpg','todayQuote':{title:'post', body:'best relaxing instrumental erhu music 2019'},'friendsList':['Ken','Sarah','Jan'],'password':'password1'},
+//     //   'Sarah':{'friendDate':10810, 'username':'sarah523', 'img':'musk.jpg','todayQuote':{title:'all of you heathens', body:'blahblah my name sarah'},'friendsList':['Ken','Jan','poster'],'password':'password1'},
+//     //   'Jan the Second':{ 'friendDate':"Never", 'username':'jan2', 'img':'musk.jpg', 'todayQuote':{title:"If a  tree falls...", body:"who picks up the pieces?"},'friendsList':['Jan','John','Ken'],'password':'password1'},
+//     //   'John':{'friendDate':10810, 'username':'jawnjawn', 'img':'musk.jpg','todayQuote':{title:'Doe', body:'As the deer panteth for the water, so my soul longeth for Pocari Sweat'},'friendsList':['Jan','Kenjamin','Ken','Seraphin'],'password':'password1'},
+//     //   'Kenjamin':{'friendDate':10810, 'username':'kenjikenjikoko', 'img':'musk.jpg','todayQuote':{title:'Kenjabin Denjakin', body:'Soup is good'},'friendsList':['Jan','John','Ken','Sarah'],'password':'password1'},
+//     //   'Seraphin':{'friendDate':10810, 'username':'notseraphimnotanangel', 'img':'musk.jpg','todayQuote':{title:'my name sera', body:'uggoggogg'},'friendsList':['Sarah','Jan the Second','Kenjamin'],'password':'password1'},
+//     // }
+    
+
+
+
+//     )
+
+// },[])
+
+useEffect(async () => {
+  if (isLoggedIn) {
+    const q = query(collection(db, "users"));
+
+    const querySnapshot = await getDocs(q);
+    const dict = {}
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      const data = doc.data()
+      if (data.todayQuote.title !== '' && data.todayQuote.body !== '') {
+        dict[data.username] = {'todayQuote':data.todayQuote, 'email':data.email}
+      }
+    });
+    console.log(dict)
+    setProfiles(dict)
+  }
+}, [isLoggedIn]);
+
 useEffect(() => {
   setQuestion("What color is today's turkey?")
 },[])
@@ -146,7 +172,8 @@ async function handleSignup(emailLogin, usernameLogin, password, cpassword) {
         username: usernameLogin,
         email: emailLogin,
         friendsList : [],
-        todayQuote : {title : "", body : ""}
+        todayQuote : {title : "", body : ""},
+        image: 'musk.jpg'
       });
 
       setMyUsername(usernameLogin)
@@ -202,11 +229,6 @@ if (isLoggedIn) {
                         }}>
                         {props => <Feed {...props} handlePost = {handlePost} />}
                       </Stack.Screen>
-                      
-                      <Stack.Screen 
-                        name = "Friends" 
-                        component = {FriendsTabs} 
-                      />
                       <Stack.Screen 
                         name = "Profile" 
                         component = {Profile} 

@@ -23,19 +23,6 @@ export default function Feed (props) {
   useEffect(() => console.log(myUsername),[myUsername])
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.navigate('Friends')}>
-          <Image
-            source={require('../../../assets/icons/people.png')} 
-            style={{ 
-              width:28, 
-              height:28,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          />
-        </TouchableOpacity>
-      ),
       headerRight: () => (
         <TouchableOpacity onPress={() => navigation.push('Me',{name:myUsername})}>
           <Image
