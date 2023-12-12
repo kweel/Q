@@ -27,23 +27,15 @@ export default function Feed (props) {
       headerLeft: () => (
         <TouchableOpacity onPress={() => {
           props.handleLogout()
-        }}>
-          <Image
-            source={require('../../../assets/icons/musk.jpg')} 
-            style={{ 
-              width:28, 
-              height:28,
-              borderRadius: 12,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          />
+        }} style={{ backgroundColor: 'black' }}>
+          <Text style={{ color: 'white' }}>Log Out</Text>
         </TouchableOpacity>
+        // </TouchableOpacity>
       ),
       headerRight: () => (
         <TouchableOpacity onPress={() => navigation.push('Me', {name: myUsername})}>
           <Image
-            source={require('../../../assets/icons/musk.jpg')} 
+            source={require('../../../assets/icons/person.png')} 
             style={{ 
               width:28, 
               height:28,

@@ -6,12 +6,12 @@ function RegisterScreen(props) {
     const [password,setPassword]=useState('')
     const [cpassword,setCPassword]=useState('')       
     return <View style={styles.container}>
-        <Text style={[styles.textHeader, { fontSize: 96, marginBottom: 10}]}>Q</Text>
-        <Text style={[styles.textHeader, { fontSize: 20, color: '#AAA', marginBottom: 50 }]}>Thinking deeply.</Text>
+        <Text style={[styles.textHeader, { fontSize: 30, marginBottom: 0}]}>Q</Text>
+        <Text style={[styles.textHeader, { fontSize: 20, color: '#AAA', marginBottom: 20 }]}>Thinking deeply.</Text>
 
         <Text style={[styles.textHeader, { fontSize: 14 }]}>Email</Text>
         <TextInput 
-            style={[styles.textInput, {color: '#fff', marginBottom: 20}]}
+            style={[styles.textInput, {color: '#fff', marginTop:5, marginBottom: 15, height: 38, borderColor: '#555555'}]}
             onChangeText={setEmail} 
             value = {email} 
             placeholder="Enter email" 
@@ -21,26 +21,29 @@ function RegisterScreen(props) {
 
         <Text style={[styles.textHeader, { fontSize: 14 }]}>Username</Text>
         <TextInput 
-            style={[styles.textInput, {color: '#fff', marginBottom: 20}]}
+            style={[styles.textInput, {color: '#fff', marginTop:5, marginBottom: 15, height: 38, borderColor: '#555555'}]}
             onChangeText={setUsername} 
             placeholder="Enter username" 
+            placeholderTextColor="#fff"
             value = {username}
         />
 
         <Text style={[styles.textHeader, { fontSize: 14 }]}>Password</Text>
         <TextInput 
-            style={[styles.textInput, {color: '#fff', marginBottom: 20}]}
+            style={[styles.textInput, {color: '#fff', marginTop:5, marginBottom: 15, height: 38, borderColor: '#555555'}]}
             secureTextEntry={true} 
             placeholder="Enter password" 
             onChangeText={setPassword} 
+            placeholderTextColor="#fff"
             value = {password}/>
 
         <Text style={[styles.textHeader, { fontSize: 14 }]}>Confirm Password</Text>
         <TextInput 
-            style={[styles.textInput, {color: '#fff', marginBottom: 20}]}
+            style={[styles.textInput, {color: '#fff', marginTop:5, marginBottom: 15, height: 38, borderColor: '#555555'}]}
             secureTextEntry={true} 
             onChangeText={setCPassword} 
             placeholder="Confirm password" 
+            placeholderTextColor="#fff"
             value = {cpassword}/>
 
         <Pressable
@@ -63,11 +66,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     textHeader: {
-        fontFamily: "Lora-SemiBold",
+        // fontFamily: "Lora-SemiBold",
         color: '#fff'
     },
     textRegular: {
-        fontFamily: 'Lora-Regular',
+        // fontFamily: 'Lora-Regular',
         color: '#fff'
     },
     textInput: {
@@ -79,7 +82,7 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 1,
         padding: 10,
-        fontFamily: 'Lora-Regular'
+        // fontFamily: 'Lora-Regular'
     },
     button: {
         backgroundColor: "#fff",
@@ -93,7 +96,7 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#1D1B20', 
         fontSize: 14, 
-        fontFamily: 'Lora-SemiBold', 
+        // fontFamily: 'Lora-SemiBold', 
     },
     inputContainer: {
         alignSelf: 'stretch',
