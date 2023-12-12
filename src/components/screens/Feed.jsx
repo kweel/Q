@@ -23,6 +23,22 @@ export default function Feed (props) {
   useEffect(() => console.log(myUsername),[myUsername])
   React.useLayoutEffect(() => {
     navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => {
+          props.handleLogout()
+        }}>
+          <Image
+            source={require('../../../assets/icons/musk.jpg')} 
+            style={{ 
+              width:28, 
+              height:28,
+              borderRadius: 12,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          />
+        </TouchableOpacity>
+      ),
       headerRight: () => (
         <TouchableOpacity onPress={() => navigation.push('Me',{name:myUsername})}>
           <Image

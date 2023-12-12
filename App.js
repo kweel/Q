@@ -73,37 +73,48 @@ export default function App() {
 //     //   'Kenjamin':{'friendDate':10810, 'username':'kenjikenjikoko', 'img':'musk.jpg','todayQuote':{title:'Kenjabin Denjakin', body:'Soup is good'},'friendsList':['Jan','John','Ken','Sarah'],'password':'password1'},
 //     //   'Seraphin':{'friendDate':10810, 'username':'notseraphimnotanangel', 'img':'musk.jpg','todayQuote':{title:'my name sera', body:'uggoggogg'},'friendsList':['Sarah','Jan the Second','Kenjamin'],'password':'password1'},
 //     // }
-    
-
-
 
 //     )
 
 // },[])
 
 useEffect( () => {
-  const fetchData = async () => {if (posted) {
-    const q = query(collection(db, "users"));
+  const fetchData = async () => {
+    if (posted) {
+      const q = query(collection(db, "users"));
 
-    const querySnapshot = await getDocs(q);
-    const dict = {}
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      const data = doc.data()
-      if (data.todayQuote.title !== '' && data.todayQuote.body !== '') {
-        dict[data.username] = {'todayQuote':data.todayQuote, 'email':data.email}
-      }
-    });
-    console.log(dict)
-    setProfiles(dict)
-  }}
+      const querySnapshot = await getDocs(q);
+      const dict = {}
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        const data = doc.data()
+        if (data.todayQuote.title !== '' && data.todayQuote.body !== '') {
+          dict[data.username] = {'todayQuote':data.todayQuote, 'email':data.email}
+        }
+      });
+      console.log(dict)
+      setProfiles(dict)
+    }
+}
+  console.log('fetched data')
   fetchData()
 }, [posted]);
 
 useEffect(() => {
   setQuestion("What color is today's turkey?")
-},[])
+},[])/*
+useEffect(()=>{
+  console.log(profiles)
+  console.log(myUsername)
+  if (profiles.length > 0 && myUsername.length>0) {
+    if ((getProfile(myUsername).todayQuote.title !== '' && getProfile(myUsername).todayQuote.body !== '')&&!posted) {
+      console.log('running')
+      setPosted(true)
+    }
 
+  }
+  
+},[profiles])*/
 const getProfile = (username,attribute) => {
   //what if instead of getting information only, put navigate to profile screen?
   //maybe I can do that in another function
@@ -123,6 +134,7 @@ async function handleLogin(emailLogin, password) {
     const user = userCredential.user;
     // ...
     setIsLoggedIn(true)
+    console.log('logged in')
 
     // update info for user
     const docRef = doc(db, "users", emailLogin);
@@ -201,7 +213,11 @@ function handlePost(myTitle, message) {
       console.log(err.message);
     });
 }
-
+function handleLogout() {
+  setIsLoggedIn(false)
+  setPosted(false)
+  setProfiles([])
+}
 if (isLoggedIn) {
   return (
     
@@ -227,7 +243,7 @@ if (isLoggedIn) {
                         options={{
                           title: 'Q',
                         }}>
-                        {props => <Feed {...props} handlePost = {handlePost} allUsers = {Object.keys(profiles)} />}
+                        {props => <Feed {...props} handlePost = {handlePost} allUsers = {Object.keys(profiles)} handleLogout={handleLogout}/>}
                       </Stack.Screen>
                       <Stack.Screen 
                         name = "Profile" 
